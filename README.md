@@ -569,3 +569,26 @@ main {
     font-size: 16px;
 }
 ```
+
+## Usuários
+
+**Branch:** [feature/users](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/users)
+
+Agora que já possuimos uma _homepage_ e um singelo estilo aplicado a ela, vamos preparar os arquivos referentes a tela de usuários.
+
+Faremos basicamente tudo o que fizemos com a Página Inicial, começando pela rota e seu _controller_.
+
+### Rota users
+
+No arquivo `./backend/routes/users.js` , vamos preparar a rota para a listagem dos usuários na _view_ `users` (considerando que cada usuário terá um Nome, Sobrenome e Email, conforme a tabela que criamos no nosso Banco de Dados).
+
+``` js
+const express = require('express'),
+    router = express.Router(),
+    controller = require('../controllers/users')
+
+router.get('/', controller.list)
+
+module.exports = router
+```
+
