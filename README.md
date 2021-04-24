@@ -873,3 +873,19 @@ const result = await db.query(`SELECT * from usuarios WHERE usuarios.id = ?`, {
     type: Sequelize.QueryTypes.SELECT
 })
 ```
+
+**Utilizando replacement com objeto**
+
+A terceira forma seria passando o valor diretamente em um objeto, bem semelhante ao método anterior - mas ao invés de marcarmos o parâmetro com `?` , indicamos o nome do parâmetro na _query_, do mesmo jeito que fazemos na rota ( `:id` ):
+
+``` js
+let {
+    id
+} = req.params
+const usuario = await db.query(`SELECT * from usuarios WHERE usuarios.id = :id`, {
+    replacements: {
+        id
+    },
+    type: Sequelize.QueryTypes.SELECT
+})
+```
