@@ -889,3 +889,5 @@ const usuario = await db.query(`SELECT * from usuarios WHERE usuarios.id = :id`,
     type: Sequelize.QueryTypes.SELECT
 })
 ```
+
+Agora basta acessar `localhost:3000/users/1` (sendo 1 o ID do usuário a ser buscado) para visualizar o retorno da consulta ao BD. Se buscar por um ID inexistente, receberá a mensagem definida na condicional que checa se há usuários ou não. Podemos, inclusive, alterar o texto da mensagem para que faça mais sentido. =)
