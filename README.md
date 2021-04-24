@@ -261,3 +261,75 @@ module.exports = {
 Estamos simplesmente declarando qual o caminho para o arquivo com os dados de conexão. O `path` nada mais faz do que unir as pastas do nosso caminho (como um `join` faria).
 
 Por fim, criaremos uma pasta (em `./backend`) chamada `database` (que será utilizada em práticas futuras).
+
+## Página Inicial
+
+Antes de entrarmos nas telas de usuários, vamos apenas ajustar nossa Homepage. Dessa forma, já faremos uma revisão breve sobre os principais conceitos do Express, MVC (no caso apenas o V - View e o C - Controller) e EJS (template engine). Lembrando que grande parte do trabalho já foi feita pelo Express Generator.
+
+### Revisão
+
+**./backend/app.js**
+
+Tudo começa no arquivo `./backend/app.js`. Referente exclusivamente à página inicial (ou _index_, Homepage), temos os seguintes _snippets_ (trechos de código):
+
+```js
+// Importantdo a rota index
+var indexRouter = require('./routes/index');
+
+// Definindo que usaremos a rota index quando acessarem '/'
+app.use('/', indexRouter);
+```
+
+**./backend/routes/index.js**
+
+A rota index vem construída dessa maneira:
+
+```js
+// Método get, que recebe a rota (a partir de onde ele é chamado) e um callback que recebe request, response e next
+router.get('/', function(req, res, next) {
+
+  // Aqui estamos pedindo para renderizar a view index (primeiro parâmetro) e enviar um objeto com a propriedade title e o valor Express
+  res.render('index', { title: 'Express' });
+
+});
+```
+
+Ou seja, ao acessarmos `localhost:3000`, chamamos a rota `index`, que renderiza a view `index` enviando `title` com o valor `Express`.
+
+A porta 3000 da URL é definida em `var port = normalizePort(process.env.PORT || '3000');`, no arquivo `backend\bin\www`.
+
+**backend\views\index.ejs**
+
+Por fim, temos a view `index`, responsável por renderizar a tela que o usuário final visualiza (podendo receber propriedades através da rota - ou do _controller_ que criaremos em breve). O EJS (e outros template engines) lembram muito a sintaxe do HTML, mas nos permitem usar JS dentro do próprio HTML, através de uma sintaxe específica. No caso, usamos `<%= umObjeto.suaPropriedade %>` para renderizarmos algo a partir de objetos JS:
+
+```ejs
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+  </body>
+</html>
+```
+
+**Visualizando nossa Página Inicial**
+
+Primeiro precisamos garantir que todas as dependências sejam instaladas. Então, de dentro da pasta `./backend`, vamos executar:
+
+```sh
+npm install
+```
+
+E, finalmente, para visualizarmos nossa página incial, precisamos iniciar nosso servidor. Precisamos executar o comando no terminal:
+
+```sh
+npm run start
+```
+
+Isso vai chamar o _script_ `start` que definimos no `./backend/package.json`, que por sua vez chama o nodemon. A partir daí, qualquer alteração nos arquivos em `./backend` fará com que o servidor já atualize (ainda assim, precisamos atualizar a aba no navegador para vermos as atualizações).
+
+Agora é só acessarmos o endereço `localhost:3000` para vermos nossa tela inicial! =)
