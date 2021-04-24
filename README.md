@@ -198,7 +198,7 @@ npm install --save -D sequelize-cli
 
 ### Conectando o Banco de Dados
 
-Bom, como é necessário criarmos a conexão com nosso banco de dados para podermos trabalhar com o Sequelize e o nosso BD (Banco de Dados) MySQL, vamos considerar essa tarefa como parte do setup do projeto.
+Bom, como é necessário criarmos a conexão com nosso banco de dados para podermos trabalhar com o Sequelize e o nosso BD (Banco de Dados) MySQL, vamos considerar a tarefa de preparar a conexão (não é a conexão em si) como parte do setup do projeto.
 
 #### Config
 
