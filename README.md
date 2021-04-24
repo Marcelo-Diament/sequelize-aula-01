@@ -764,19 +764,40 @@ Toda a mágica vai acontecer no _controller_ de usuários. Vamos lá!
 
 ### Importando os Dados para Conexão com o BD
 
-Logo no início do arquivo `./backend/controllers/users.js`, vamos importar o módulo do Sequelize e os dados de acesso ao banco:
+Logo no início do arquivo `./backend/controllers/users.js` , vamos importar o módulo do Sequelize e os dados de acesso ao banco:
 
-```js
+``` js
 const Sequelize = require('sequelize'),
-  config = require('../config/database')
+    config = require('../config/database')
 ```
 
 ### Conectando com o DB
 
-Na sequência da `const config`, definiremos a nossa conexão, chamando-a de `db`:
+Na sequência da `const config` , definiremos a nossa conexão, chamando-a de `db` :
 
-```js
+``` js
 db = new Sequelize(config)
 ```
 
 Estamos instanciando a classe Sequelize e passando os dados de conexão como argumento.
+
+### Atualizando o Controller
+
+Agora podemos remover nosso _array_ de objetos de usuários _hard coded_ e trocarmos pelos usuários do banco.
+
+Vamos criar a nossa _raw query_ (ou seja, nossa consulta em 'SQL puro') e passar o retorno da _query_ para o objeto enviado à _view_.
+
+> Importante! Como se trata de uma consulta, ela pode demorar um pouco para retornar, por isso usaremos uma fução assíncrona e aplicaremos o `await` para aguardarmos o retorno de nossa consulta.
+
+``` js
+list: async (req, res, next) => {
+    const users = await db.query('SELECT * from usuarios', {
+        type: Sequelize.QueryTypes.SELECT
+    })
+    res.render('users', {
+        title: 'Página de Usuários',
+        subtitle: 'Confira a seguir os usuários cadastrados em nosso banco de dados',
+        users
+    })
+}
+```
