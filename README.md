@@ -827,7 +827,7 @@ Veremos 3 formas de utilizarmos o parâmetro `id` (recebido na _request_) em nos
 
 **Usando interpolação**
 
-Basicamente estamos considerando que receberemos o parâmetro `id` a partir da _request_ da rota (`req.params.id`). Caso queira saber mais sobre as rotas no Express, acesse [esse repositório](https://github.com/Marcelo-Diament/express-roteamento).
+Basicamente estamos considerando que receberemos o parâmetro `id` a partir da _request_ da rota ( `req.params.id` ). Caso queira saber mais sobre as rotas no Express, acesse [esse repositório](https://github.com/Marcelo-Diament/express-roteamento).
 
 Como manteremos a propriedade `users` nas propriedades retornadas à _view_, precisamos atribuir o valor capturado em `user`
 
@@ -844,7 +844,7 @@ const controller = {
         })
     },
     index: async (req, res, next) => {
-        const user = await db.query('SELECT * from usuarios', {
+        const user = await db.query(`SELECT * from usuarios WHERE usuarios.id = ${req.params.id}`, {
             type: Sequelize.QueryTypes.SELECT
         })
         res.render('users', {
@@ -855,3 +855,5 @@ const controller = {
     }
 }
 ```
+
+**Utilizando replacement com array**
