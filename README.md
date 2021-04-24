@@ -805,4 +805,53 @@ list: async (req, res, next) => {
 
 ### Atualizando a View
 
-Como estávamos usando os nomes das propriedades em inglês, precisamos atualizar nossa _partial view_ `users`, atualizando o nome das propriedades (colunas da tabela `usuarios`) para português. Basta atualizarmos as chaves/propriedades `name` para `nome` e `lastName` para `sobrenome`.
+Como estávamos usando os nomes das propriedades em inglês, precisamos atualizar nossa _partial view_ `users` , atualizando o nome das propriedades (colunas da tabela `usuarios` ) para português. Basta atualizarmos as chaves/propriedades `name` para `nome` e `lastName` para `sobrenome` .
+
+## Leitura de Usuário do Banco
+
+**Branch:** [feature/read-db-user](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/read-db-user)
+
+Faremos um segundo `SELECT` no nosso BD, mas dessa vez, de um usuário específico. Para isso vamos:
+
+1. Criar um novo método no nosso _controller_
+
+2. Criar uma nova rota em `users`, que receberá o parâmetro `:id` (o qual servirá para selecionarmos nosso usuário)
+
+Em relação à _view_, manteremos ela como está (por essa razão, por mais que recebamos apenas um usuário, manteremos a estrutura de `users` no retorno/_response_ do _controller_).
+
+### Método index do Controller de Usuários
+
+Vamos incluir o método `index` no nosso _controller_. Será bem semelhante ao anterior, mas teremos a cláusula `WHERE` em nossa `query` .
+
+Veremos 3 formas de utilizarmos o parâmetro `id` (recebido na _request_) em nossa _query_.
+
+**Usando interpolação**
+
+Basicamente estamos considerando que receberemos o parâmetro `id` a partir da _request_ da rota (`req.params.id`). Caso queira saber mais sobre as rotas no Express, acesse [esse repositório](https://github.com/Marcelo-Diament/express-roteamento).
+
+Como manteremos a propriedade `users` nas propriedades retornadas à _view_, precisamos atribuir o valor capturado em `user`
+
+``` js
+const controller = {
+    list: async (req, res, next) => {
+        const users = await db.query('SELECT * from usuarios', {
+            type: Sequelize.QueryTypes.SELECT
+        })
+        res.render('users', {
+            title: 'Página de Usuários',
+            subtitle: 'Confira a seguir os usuários cadastrados em nosso banco de dados',
+            users
+        })
+    },
+    index: async (req, res, next) => {
+        const user = await db.query('SELECT * from usuarios', {
+            type: Sequelize.QueryTypes.SELECT
+        })
+        res.render('users', {
+            title: 'Página de Usuário',
+            subtitle: 'Confira a seguir o usuário encontrado em nosso banco de dados',
+            users: user
+        })
+    }
+}
+```
