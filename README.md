@@ -857,3 +857,19 @@ const controller = {
 ```
 
 **Utilizando replacement com array**
+
+No trecho referente à _query_, especificamente, poderíamos marcar o local de um ou mais parâmetros recebidos com `?` e definir o valor desses parâmetros através de um _array_ passando dentro a propriedade `replacements` , dentro das `options` (segundo parâmetro do método `query()` ).
+
+Nesse caso, cada `?` será substituído pelo índice do _array_ correspondente. No caso temos apenas um parâmetro - então o primeiro parâmetro será substituído pelo valor do índice 0 do _array_:
+
+``` js
+let {
+    id
+} = req.params
+const result = await db.query(`SELECT * from usuarios WHERE usuarios.id = ?`, {
+    replacements: [
+        id
+    ],
+    type: Sequelize.QueryTypes.SELECT
+})
+```
