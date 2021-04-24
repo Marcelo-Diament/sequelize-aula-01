@@ -259,3 +259,5 @@ module.exports = {
 ```
 
 Estamos simplesmente declarando qual o caminho para o arquivo com os dados de conexão. O `path` nada mais faz do que unir as pastas do nosso caminho (como um `join` faria).
+
+Por fim, criaremos uma pasta (em `./backend`) chamada `database` (que será utilizada em práticas futuras).
