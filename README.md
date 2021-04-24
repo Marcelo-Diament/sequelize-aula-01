@@ -32,7 +32,7 @@ Para executar essa prática, precisaremos de:
 
 5. Node.js instalado (verifique se está instalado com o comando de terminal `node -v`)
 
-6. NPM instalado (verifique se está instalado com o comando de terminal `npm -v`)
+6. NPM (ou Yarn) instalado (verifique se está instalado com o comando de terminal `npm -v`)
 
 ### Tecnologias
 
@@ -115,3 +115,25 @@ VALUES ('Fulano', 'Dias', 'fulano@dias.com'),
 ```
 
 Podemos ainda executar `SELECT * FROM usuarios;` para vermos os registros inseridos.
+
+### Dependências Globais
+
+Não é obrigatório, mas já podemos deixar algumas dependências de forma global, para utilizarmos mais facilmente nos próximos projetos.
+
+É importante lembrar que, caso queira deixar a dependência salva no `package.json` (arquivo responsável - também - por mapear as dependências do projeto), devemos instalar localmente, indicando a opção `--save` para salvar como dependência. Também podemos indicar como uma dependência de desenvolvimento passando a opção `-D` após `--save`.
+
+#### Express Generator
+
+Trata-se de um _boilerplate_ do Express, ou seja, esse pacote já cria um projeto estruturado de Express para nós. Para instalar devemos executar no terminal o seguinte comando:
+
+```sh
+npm install express-generator -g
+```
+
+#### Nodemon
+
+É um pacote que simplesmente observa as alterações no projeto e atualiza o servidor automaticamente (sem precisarmos 'derrubar' o servidor com o `Control + C` e reiniciarmos com `node arquivo.js`). Comando para instalação:
+
+```sh
+npm install -g nodemon
+```
