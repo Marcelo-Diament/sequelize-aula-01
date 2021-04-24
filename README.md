@@ -905,3 +905,19 @@ Simples assim! Apenas duas observações:
 - Repare que, como o arquivo da rota de usuários já foi chamado dentro da rota `users` (lá no arquivo `./backend/app.js` - `app.use('/users', usersRouter)`), não devemos repetir esse trecho `/users` no método `get()` de `router`.
 
 Agora basta acessar `localhost:3000/users/1` (sendo 1 o ID do usuário a ser buscado) para visualizar o retorno da consulta ao BD. Se buscar por um ID inexistente, receberá a mensagem definida na condicional que checa se há usuários ou não. Podemos, inclusive, alterar o texto da mensagem para que faça mais sentido. =)
+
+## Adição de Usuário ao Banco
+
+**Branch:** [feature/add-user](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/add-user)
+
+Beleza! Já conseguimos ler um ou todos os usuários do nosso Banco de Dados! Agora vamos ver como fazer para adicionarmos um novo usuário.
+
+Nessa prática faremos o seguinte:
+
+1. Vamos criar um formulário de cadastro (dentro da própria _view_ `users`, só para facilitar a prática e focarmos no Sequelize)
+
+2. Vamos preparar um novo método (`add`) no nosso _controller_
+
+3. Vamos criar uma rota específica, com o mesmo _path_ `/` (que representa, dentro do arquivo `./backend/routes/users.js`, `localhost:3000/users`) - mas agora com o método `post`.
+
+Por padrão, o método `PATCH` permitiria adicionarmos ou editarmos um usuário. Mas vamos usar o `POST` para termos cada etapa do CRUD separada.
