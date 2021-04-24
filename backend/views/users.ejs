@@ -8,7 +8,9 @@
   <% if(users && users.length > 0) { %>
   <%- include('partials/users') %>
   <% } else { %>
-  <h3>Ops... não há usuários cadastrados no banco de dados</h3>
+  <section>
+    <h3>Ops... não há usuários cadastrados no banco de dados</h3>
+  </section>
   <% } %>
 </main>
 <%- include('partials/footer') %>
