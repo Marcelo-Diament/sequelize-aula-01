@@ -503,3 +503,69 @@ E para nossa _homepage_ não ficar tão sem graça assim, vamos incrementar um p
 </main>
 <%- include('partials/footer') %>
 ```
+
+### Atualizando o Estilo
+
+E pra finalizar essa _branch_, vamos atualizar o estilo geral das nossas páginas. O arquivo responsável pelo estilo é o `./backend/public/stylesheets/style.css` . Vamos criar algumas variáveis e aplicar um estilo simples usando as classes que já criamos. Ficará assim:
+
+``` css
+:root {
+    --azul: #00B7FF;
+    --branco: #fff;
+    --chumbo: #3e3e3e;
+    --cinza: #eee;
+    --preto: #000;
+}
+
+body {
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: var(--azul);
+    text-decoration: none;
+}
+
+.header,
+.footer {
+    background-color: var(--azul);
+    color: var(--branco);
+    margin: 0;
+    max-height: 76px;
+    min-height: 40px;
+    padding: 16px;
+    text-align: center;
+    width: -webkit-fill-available;
+}
+
+.header__title {
+    font-size: 16px;
+}
+
+.footer__title {
+    font-size: 14px;
+    font-weight: bolder;
+}
+
+main {
+    min-height: calc(100vh - 180px);
+    padding: 16px;
+}
+
+.main-section__title {
+    font-size: 24px;
+}
+
+.main-section__subtitle {
+    color: var(--chumbo);
+    font-size: 20px;
+}
+
+.main-section__description {
+    color: var(--chumbo);
+    font-size: 16px;
+}
+```
