@@ -592,3 +592,44 @@ router.get('/', controller.list)
 module.exports = router
 ```
 
+### Controller users
+
+Nesse momento, se estiver com o servidor 'rodando', verá que um erro é acusado. Isso ocorre por que ainda não criamos nosso _controller_ `users` . Faremos isso agora mesmo! Vamos criar o arquivo `./backend/controllers/users.js` e defini-lo dessa maneira:
+
+``` js
+const controller = {
+        list: (req, res, next) => {
+            res.render('users', {
+                    title: 'Página de Usuários',
+                    subtitle: 'Confira a seguir os usuários cadastrados em nosso banco de dados',
+                    usuarios: [{
+                            {
+                                id: 1,
+                                name: 'Fulano',
+                                lastName: 'de Tal',
+                                email: 'fulano@detal.com',
+                            },
+                            {
+                                id: 2,
+                                name: 'Ciclano',
+                                lastName: 'Tal Qual',
+                                email: 'ciclano@talqual.com',
+                            }
+                        ]
+                    })
+            }
+        }
+
+        module.exports = controller
+```
+
+Verá que esse _controller_ é muito semelhante ao `index` . As únicas diferenças são:
+
+* Dessa vez o nome do método que criamos é `list`
+
+* Ao invés de renderizarmos a _view_ `index`, vamos renderizar a _view_ `users` (que ainda precisamos criar)
+
+* Além de `title` e `subtitle`, estamos passando uma terceira propriedade, chamada `users`. Essa propriedade tem como valor um _array_ de objetos, sendo cada um dos objetos uma representação dos usuários (com Nome, Sobrenome e Email - `name`,  `lastName` e `email`).
+
+Esses usuários passados por código (_hard coded_) serão substituídos pelos usuários do banco, em breve. Antes precisamos criar a nossa nova _view_ `users` .
+
