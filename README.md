@@ -52,7 +52,7 @@ Para o banco de dados, seguiremos com MySQL como linguagem (e o pacote MySQL2) e
 
 Por fim, usaremos o pacote nodemon para que o servidor seja automaticamente atualizado a cada alteração em nosso código.
 
-## Pré Setup do Projeto
+## Preset do Projeto
 
 Alguns passos antes de iniciarmos.
 
