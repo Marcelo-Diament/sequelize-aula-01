@@ -143,6 +143,8 @@ npm install -g nodemon
 
 Agora vamos, finalmente criar nosso projeto! =)
 
+### Projeto Express com Express Generator
+
 Nessa prática, faremos tudo através do Node.js, então não teremos front end. Vamos criar nossa pasta de backend utilizando o Express Generator, que acabamos de instalar globalmente. É bem simples, basta executarmos:
 
 ``` sh
@@ -152,3 +154,30 @@ express backend --view=ejs
 O termo `express` chama o pacote que instalamos. `backend` é o nome do projeto Express, da pasta que será criada. E `--view=ejs` indica que a template engine que utilizaremos será o EJS.
 
 Verá que a pasta `backend` foi criada já com uma série de arquivos dentro dela (caso tenha dúvidas em relação ao Express e ao Express Generator, consulte os repositórios específicos sobre esse tema, como [express-intro](https://github.com/Marcelo-Diament/express-intro) ou [express-generator](https://github.com/Marcelo-Diament/express-generator)). Sobre o EJS, há o repositório [template-engine-ejs](https://github.com/Marcelo-Diament/template-engine-ejs).
+
+### Script Start
+
+Agora vamos atualizar o _script_ `start` do arquivo `./backend/package.json` para usarmos o `nodemon`.
+
+Nesse arquivo (dentro da pasta `./backend`) vamos substituir o trecho `node` do _script_ `start` por `nodemon`. Ficará assim:
+
+```json
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1"
+  }
+}
+```
+
+Dependendo de quando estiver realizando essa prática as versões das dependências podem mudar.
