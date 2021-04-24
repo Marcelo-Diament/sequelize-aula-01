@@ -242,25 +242,25 @@ Observação: poderíamos já exportar essas configurações sem criarmos uma `c
 
 Agora que temos os dados necessários para a conexão, vamos criar um arquivo que de fato permite conectarmos nosso backend ao BD (mas ainda não é a conexão em si).
 
-Vamos criar o arquivo `.sequelizerc` (um arquivo oculto, pois se inicia com ponto). Ele deve ser criado na pasta `./backend`.
+Vamos criar o arquivo `.sequelizerc` (um arquivo oculto, pois se inicia com ponto). Ele deve ser criado na pasta `./backend` .
 
-```sh
+``` sh
 touch .sequelizerc && code .sequelizerc
 ```
 
 Nesse arquivo, declararemos o seguinte trecho de código:
 
-```js
+``` js
 const path = require('path')
 
 module.exports = {
-  'config': path.resolve('config','database.js')
+    'config': path.resolve('config', 'database.js')
 }
 ```
 
 Estamos simplesmente declarando qual o caminho para o arquivo com os dados de conexão. O `path` nada mais faz do que unir as pastas do nosso caminho (como um `join` faria).
 
-Por fim, criaremos uma pasta (em `./backend`) chamada `database` (que será utilizada em práticas futuras).
+Por fim, criaremos uma pasta (em `./backend` ) chamada `database` (que será utilizada em práticas futuras).
 
 ## Página Inicial
 
@@ -270,9 +270,9 @@ Antes de entrarmos nas telas de usuários, vamos apenas ajustar nossa Homepage. 
 
 **./backend/app.js**
 
-Tudo começa no arquivo `./backend/app.js`. Referente exclusivamente à página inicial (ou _index_, Homepage), temos os seguintes _snippets_ (trechos de código):
+Tudo começa no arquivo `./backend/app.js` . Referente exclusivamente à página inicial (ou _index_, Homepage), temos os seguintes _snippets_ (trechos de código):
 
-```js
+``` js
 // Importantdo a rota index
 var indexRouter = require('./routes/index');
 
@@ -284,25 +284,27 @@ app.use('/', indexRouter);
 
 A rota index vem construída dessa maneira:
 
-```js
+``` js
 // Método get, que recebe a rota (a partir de onde ele é chamado) e um callback que recebe request, response e next
 router.get('/', function(req, res, next) {
 
-  // Aqui estamos pedindo para renderizar a view index (primeiro parâmetro) e enviar um objeto com a propriedade title e o valor Express
-  res.render('index', { title: 'Express' });
+    // Aqui estamos pedindo para renderizar a view index (primeiro parâmetro) e enviar um objeto com a propriedade title e o valor Express
+    res.render('index', {
+        title: 'Express'
+    });
 
 });
 ```
 
-Ou seja, ao acessarmos `localhost:3000`, chamamos a rota `index`, que renderiza a view `index` enviando `title` com o valor `Express`.
+Ou seja, ao acessarmos `localhost:3000` , chamamos a rota `index` , que renderiza a view `index` enviando `title` com o valor `Express` .
 
-A porta 3000 da URL é definida em `var port = normalizePort(process.env.PORT || '3000');`, no arquivo `backend\bin\www`.
+A porta 3000 da URL é definida em `var port = normalizePort(process.env. PORT || '3000'); ` , no arquivo `backend\bin\www` .
 
 **backend\views\index.ejs**
 
-Por fim, temos a view `index`, responsável por renderizar a tela que o usuário final visualiza (podendo receber propriedades através da rota - ou do _controller_ que criaremos em breve). O EJS (e outros template engines) lembram muito a sintaxe do HTML, mas nos permitem usar JS dentro do próprio HTML, através de uma sintaxe específica. No caso, usamos `<%= umObjeto.suaPropriedade %>` para renderizarmos algo a partir de objetos JS:
+Por fim, temos a view `index` , responsável por renderizar a tela que o usuário final visualiza (podendo receber propriedades através da rota - ou do _controller_ que criaremos em breve). O EJS (e outros template engines) lembram muito a sintaxe do HTML, mas nos permitem usar JS dentro do próprio HTML, através de uma sintaxe específica. No caso, usamos `<%= umObjeto.suaPropriedade %>` para renderizarmos algo a partir de objetos JS:
 
-```ejs
+``` ejs
 <!DOCTYPE html>
 <html>
   <head>
@@ -318,18 +320,48 @@ Por fim, temos a view `index`, responsável por renderizar a tela que o usuário
 
 **Visualizando nossa Página Inicial**
 
-Primeiro precisamos garantir que todas as dependências sejam instaladas. Então, de dentro da pasta `./backend`, vamos executar:
+Primeiro precisamos garantir que todas as dependências sejam instaladas. Então, de dentro da pasta `./backend` , vamos executar:
 
-```sh
+``` sh
 npm install
 ```
 
 E, finalmente, para visualizarmos nossa página incial, precisamos iniciar nosso servidor. Precisamos executar o comando no terminal:
 
-```sh
+``` sh
 npm run start
 ```
 
-Isso vai chamar o _script_ `start` que definimos no `./backend/package.json`, que por sua vez chama o nodemon. A partir daí, qualquer alteração nos arquivos em `./backend` fará com que o servidor já atualize (ainda assim, precisamos atualizar a aba no navegador para vermos as atualizações).
+Isso vai chamar o _script_ `start` que definimos no `./backend/package.json` , que por sua vez chama o nodemon. A partir daí, qualquer alteração nos arquivos em `./backend` fará com que o servidor já atualize (ainda assim, precisamos atualizar a aba no navegador para vermos as atualizações).
 
 Agora é só acessarmos o endereço `localhost:3000` para vermos nossa tela inicial! =)
+
+### Controller
+
+O Controller serve para gerenciar, controlar, o que deve acontecer entre o acesso à rota (_request_) e a resposta entregue na tela (_response_). Dessa forma conseguimos implantar regras de negócio de forma a isolar tal responsabilidade.
+
+Começaremos criando uma pasta chamada `controllers` e um arquivo `index.js` dentro dela (_controller_ responsável pela rota `index` ). No terminal, executaremos (a partir da pasta `./backend` )
+
+``` sh
+mkdir controllers && cd controllers && touch index.js && code index.js
+```
+
+O _controller_ nada mais é do que um objeto JS com métodos a serem chamados de acordo com cada rota. Esse objeto deve ser exportado como um módulo. Nesse arquivo teremos a seguinte estrutura:
+
+``` js
+// Criamos o objeto controller
+const controller = {
+    // Definimos uma chave que corresponde ao método index, que por sua vez, tem como valor uma arrow function que recebe req, res e next
+    index: (req, res, next) => {
+        //Aqui estamos renderizando a view index e enviando as propriedades title e subtitle e seus respectivos valores
+        res.render('index', {
+            title: 'Página Inicial',
+            subtitle: 'Bem vindo à prática de Sequelize #01!'
+        });
+    }
+}
+
+module.exports = controller
+```
+
+Nesse caso só estamos prevendo um método - `index` - que responde ao acesso à página inicial sob o método `GET` (por isso o método do Express utilizado na rota é o `get()`).
