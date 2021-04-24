@@ -239,3 +239,23 @@ Perceba que são aqueles mesmos dados de conexão que mencionamos anteriormente.
 > Atenção! Esses dados são dados sensíveis - devem estar no arquivo `.gitignore` do nosso repositório para não serem compartilhados com o mundo. Como se trata apenas de um exercício e de uma conexão local padrão, sem senha, nesse caso não tem problema.
 
 Observação: poderíamos já exportar essas configurações sem criarmos uma `const` , isso é opcional - mas fica mais compreensível definindo uma `const` e dando um nome aos dados que estamos informando.
+
+Agora que temos os dados necessários para a conexão, vamos criar um arquivo que de fato permite conectarmos nosso backend ao BD (mas ainda não é a conexão em si).
+
+Vamos criar o arquivo `.sequelizerc` (um arquivo oculto, pois se inicia com ponto). Ele deve ser criado na pasta `./backend`.
+
+```sh
+touch .sequelizerc && code .sequelizerc
+```
+
+Nesse arquivo, declararemos o seguinte trecho de código:
+
+```js
+const path = require('path')
+
+module.exports = {
+  'config': path.resolve('config','database.js')
+}
+```
+
+Estamos simplesmente declarando qual o caminho para o arquivo com os dados de conexão. O `path` nada mais faz do que unir as pastas do nosso caminho (como um `join` faria).
