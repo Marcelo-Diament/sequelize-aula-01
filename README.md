@@ -184,8 +184,8 @@ Dependendo de quando estiver realizando essa prática as versões das dependênc
 
 ### Dependências Locais
 
-Agora já vamos deixar instaladas as dependências. Vamos instalar o pacote 'sequelize' e o pacote 'mysql2' de uma só vez:
+Agora já vamos deixar instaladas as dependências. Dentro da pasta `backend` vamos instalar o pacote 'sequelize' e o pacote 'mysql2' de uma só vez:
 
 ```sh
-npm install --save sequelize mysql2
+cd backend && npm install --save sequelize mysql2
 ```
