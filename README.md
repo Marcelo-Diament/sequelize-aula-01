@@ -432,7 +432,7 @@ cd partials && touch head.ejs header.ejs footer.ejs
 
 ### Head, Header e Footer
 
-Agora tudo o que temos que fazer é recortar cada trecho e colar no respectivo _subtemplate_. Mas... já que vamos mexer nisso, já vamos adicionar algumas classes (respeitando o padrão BEM, onde organizamos os seletores por Bloco, Elemento e Modificador) para darmos um 'talento' nesse estilo.
+Agora tudo o que temos que fazer é recortar cada trecho e colar no respectivo _subtemplate_. Mas... já que vamos mexer nisso, já vamos adicionar algumas classes (respeitando o padrão [BEM](http://getbem.com/naming/), onde organizamos os seletores por Bloco, Elemento e Modificador) para darmos um 'talento' nesse estilo.
 
 Lembre-se de que não há um `header` nem um `footer` definido ainda, então vamos criar algo bem simples.
 
@@ -445,7 +445,7 @@ Já vamos incluir a abertura da tag `body` também.
 <html>
 
 <head>
-  <title><%= title %></title>
+  <title><%= title %> | Sequelize #01</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
@@ -454,23 +454,52 @@ Já vamos incluir a abertura da tag `body` também.
 
 **./backend/views/partials/header.ejs**
 
-Vamos usar o `title` como `h1` em nosso `header` .
+Vamos usar um texto fixo como `h1` em nosso `header` .
 
 ``` ejs
 <header class="header">
-  <h1 class="header__title"><%= title %></h1>
+  <h1 class="header__title">Sequelize #01 | Raw Queries</h1>
 </header>
 ```
 
 **./backend/views/partials/footer.ejs**
 
-No `footer` usaremos o `title` também, acompanhado do símbolo HTML de _copyright_ e do ano atual. Repare que estamos usando JS puro dentro da sintaxe de renderização do EJS. E fechamos o `body` .
+No `footer` usaremos um texto fixo acompanhado do símbolo HTML de _copyright_ e do ano atual. Repare que estamos usando JS puro dentro da sintaxe de renderização do EJS. E fechamos o `body` .
 
 ``` ejs
 <footer class="footer">
-  <p class="footer__copy"><%= title %> &copy; | <%= new Date().getFullYear() %></p>
+  <p class="footer__copy">Sequelize #01 - Raw Queries &copy; | <%= new Date().getFullYear() %></p>
 </footer>
 </body>
 
 </html>
+```
+
+### Incluindo os Templates Parciais
+
+Agora que temos nossos templates parciais prontos, precisamos inclui-los na _view_ `index` . Para isso usaremos a seguinte sintaxe: `<%- include('caminho-do-arquivo/a-partir-da-view-atual') %>` :
+
+``` ejs
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<h1><%= title %></h1>
+<p><%= subtitle %></p>
+<%- include('partials/footer') %>
+```
+
+E para nossa _homepage_ não ficar tão sem graça assim, vamos incrementar um pouquinho mais.
+
+``` ejs
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main>
+  <section class="main-section">
+    <h2 class="main-section__title"><%= title %></h2>
+    <h3 class="main-section__subtitle"><%= subtitle %></h3>
+    <p class="main-section__description">Nesse repositório criaremos um projeto simples, onde poderemos criar, consultar, editar e excluir usuários a partir de um banco de dados MySQL.</p>
+    <p class="main-section__description">O intuito é entendermos como conectar o backend (node.js) a um banco de dados, realizar o CRUD (Create, Read, Update e Delete) através do Sequelize e utilizarmos queries SQL puras para executarmos as ações (Raw Queries).</p>
+    <p class="main-section__description">Embora o Sequelize tenha outras features mais bacanas, como usar os métodos do Sequelize e Models, iniciaremos pelo básico.</p>
+  </section>
+</main>
+<%- include('partials/footer') %>
 ```
