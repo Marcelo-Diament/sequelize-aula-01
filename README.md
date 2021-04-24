@@ -157,11 +157,11 @@ Verá que a pasta `backend` foi criada já com uma série de arquivos dentro del
 
 ### Script Start
 
-Agora vamos atualizar o _script_ `start` do arquivo `./backend/package.json` para usarmos o `nodemon`.
+Agora vamos atualizar o _script_ `start` do arquivo `./backend/package.json` para usarmos o `nodemon` .
 
-Nesse arquivo (dentro da pasta `./backend`) vamos substituir o trecho `node` do _script_ `start` por `nodemon`. Ficará assim:
+Nesse arquivo (dentro da pasta `./backend` ) vamos substituir o trecho `node` do _script_ `start` por `nodemon` . Ficará assim:
 
-```json
+``` json
 {
   "name": "backend",
   "version": "0.0.0",
@@ -186,12 +186,56 @@ Dependendo de quando estiver realizando essa prática as versões das dependênc
 
 Agora já vamos deixar instaladas as dependências. Dentro da pasta `backend` vamos instalar o pacote 'sequelize' e o pacote 'mysql2' de uma só vez:
 
-```sh
+``` sh
 cd backend && npm install --save sequelize mysql2
 ```
 
 E vamos instalar, também, a dependência de desenvolvimento 'sequelize-cli':
 
-```sh
+``` sh
 npm install --save -D sequelize-cli
 ```
+
+### Conectando o Banco de Dados
+
+Bom, como é necessário criarmos a conexão com nosso banco de dados para podermos trabalhar com o Sequelize e o nosso BD (Banco de Dados) MySQL, vamos considerar essa tarefa como parte do setup do projeto.
+
+#### Config
+
+Na pasta `./backend` vamos criar um arquivo `database.js` dentro de uma pasta que vamos criar também, chamada `config` . Faremos isso via terminal.
+
+Considerando que já estamos dentro da pasta `./backend` no terminal, executaremos o seguinte comando:
+
+``` sh
+mkdir config && cd config && touch database.js && code database.js
+```
+
+Simplesmente estamos concatenando os comandos para 1. criar a pasta `config` , 2. acessar a pasta `config` , 3. criar o arquivo `database.js` e 4. abrir o arquivo `database.js` .
+
+O arquivo `./backend/config/database.js` abrirá automaticamente. Então vamos incluir o seguinte código dentro dele:
+
+``` js
+const config = {
+    username: 'root',
+    password: '',
+    database: 'aula_sequelize_01',
+    host: 'localhost',
+    dialect: 'mysql'
+}
+
+module.exports = config
+```
+
+Perceba que são aqueles mesmos dados de conexão que mencionamos anteriormente. Temos:
+
+| Propriedade (chave) | Valor               | Descrição                          |
+| ------------------- | ------------------- | ---------------------------------- |
+| username            | 'root'              | Nome de usuário do BD              |
+| password            | ''                  | Senha do BD (no caso, vazia)       |
+| database            | 'aula_sequelize_01' | Nome do Banco de Dados que criamos |
+| host                | 'localhost'         | Host (poderia ser '127.0.0.1')     |
+| dialect             | 'mysql'             | Dialeto - usaremos o MySQL         |
+
+> Atenção! Esses dados são dados sensíveis - devem estar no arquivo `.gitignore` do nosso repositório para não serem compartilhados com o mundo. Como se trata apenas de um exercício e de uma conexão local padrão, sem senha, nesse caso não tem problema.
+
+Observação: poderíamos já exportar essas configurações sem criarmos uma `const` , isso é opcional - mas fica mais compreensível definindo uma `const` e dando um nome aos dados que estamos informando.
