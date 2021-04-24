@@ -1,4 +1,4 @@
-# Sequelize | #01 - Raw Queries
+# Sequelize #01 | Raw Queries
 
 Prática referente à aula de introdução ao Sequelize.
 
