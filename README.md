@@ -671,6 +671,10 @@ Dentro dessa `section` , teremos uma `table` e, dentro dela, uma `tr` (_table ro
       </tbody>
     </table>
   </section>
+  <% } else { %>
+  <section>
+    <h3>Ops... não há usuários cadastrados no banco de dados</h3>
+  </section>
   <% } %>
 </main>
 <%- include('partials/footer') %>
