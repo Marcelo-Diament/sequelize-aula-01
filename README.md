@@ -633,3 +633,92 @@ Verá que esse _controller_ é muito semelhante ao `index` . As únicas diferen�
 
 Esses usuários passados por código (_hard coded_) serão substituídos pelos usuários do banco, em breve. Antes precisamos criar a nossa nova _view_ `users` .
 
+### View users
+
+Podemos duplicar o arquivo `./backend/views/index.ejs` e renomeá-lo como `users.ejs` .
+
+Vamos apagar os parágrafos dentro da `main-section` e criar uma nova `section` com a classe `users` (que só aparecerá caso haja usuários enviados, senão deveremos mostrar uma mensagem dizendo que não há usuários cadastrados - usaremos uma condicional para criarmos essa condição).
+
+Dentro dessa `section` , teremos uma `table` e, dentro dela, uma `tr` (_table row_) para cada usuário - mas faremos isso usando um _loop_, de forma que a _view_ mostre quantos usuários receber. Nossa _view_ ficará assim (por enquanto):
+
+``` ejs
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main>
+  <section class="main-section">
+    <h2 class="main-section__title"><%= title %></h2>
+    <h3 class="main-section__subtitle"><%= subtitle %></h3>
+  </section>
+  <% if(users && users.length > 0) { %>
+  <section class="users">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Sobrenome</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for(let user of users) { %>
+        <tr id="user<%= user.id %>" class="user">
+          <td class="user__id"><%=user.id%></td>
+          <td class="user__name"><%= user.name %></td>
+          <td class="user__lastname"><%= user.lastName %></td>
+          <td class="user__email"><%= user.email %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </section>
+  <% } %>
+</main>
+<%- include('partials/footer') %>
+```
+
+Ok. Mas... agora nossa _view_ está poluída novamente! Então vamos criar um _template_ parcial apenas para a listagem de usuários.
+
+Tudo o que precisamos fazer é mover o trecho referente à listagem de usuários para um arquivo `./backend/views/partials/users.ejs` e incluirmos o template parcial na _view_ de usuários. Teremos os arquivos assim:
+
+**./backend/views/users.ejs**
+
+``` ejs
+<%- include('partials/head') %>
+<%- include('partials/header') %>
+<main>
+  <section class="main-section">
+    <h2 class="main-section__title"><%= title %></h2>
+    <h3 class="main-section__subtitle"><%= subtitle %></h3>
+  </section>
+  <% if(users && users.length > 0) { %>
+  <%- include('partials/users') %>
+  <% } %>
+</main>
+<%- include('partials/footer') %>
+```
+
+**./backend/views/partials/users.ejs**
+
+``` ejs
+<section class="users">
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let user of users) { %>
+      <tr id="user<%= user.id %>" class="user">
+        <td class="user__id"><%=user.id%></td>
+        <td class="user__name"><%= user.name %></td>
+        <td class="user__lastname"><%= user.lastName %></td>
+        <td class="user__email"><%= user.email %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</section>
+```
