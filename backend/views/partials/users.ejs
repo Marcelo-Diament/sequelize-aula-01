@@ -12,8 +12,8 @@
       <% for(let user of users) { %>
       <tr id="user<%= user.id %>" class="user">
         <td class="user__id"><%=user.id%></td>
-        <td class="user__name"><%= user.name %></td>
-        <td class="user__lastname"><%= user.lastName %></td>
+        <td class="user__name"><%= user.nome %></td>
+        <td class="user__lastname"><%= user.sobrenome %></td>
         <td class="user__email"><%= user.email %></td>
       </tr>
       <% } %>
