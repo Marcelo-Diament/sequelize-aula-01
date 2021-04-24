@@ -890,4 +890,18 @@ const usuario = await db.query(`SELECT * from usuarios WHERE usuarios.id = :id`,
 })
 ```
 
+### Adição de Rota
+
+Por fim, precisamos criar uma rota que receba o parâmetro `id` e retorne o novo método criado (`index`) do nosso _controller_:
+
+```js
+router.get('/:id', controller.index)
+```
+
+Simples assim! Apenas duas observações:
+
+- Como já sabemos, a sintaxe para indicar a presença de um parâmetro é `:nomeDoParametro`, no caso `:id`. Através desse nome que acessaremos o parâmetro vindo na _request_ (`req.params.nomeDoParametro`)
+
+- Repare que, como o arquivo da rota de usuários já foi chamado dentro da rota `users` (lá no arquivo `./backend/app.js` - `app.use('/users', usersRouter)`), não devemos repetir esse trecho `/users` no método `get()` de `router`.
+
 Agora basta acessar `localhost:3000/users/1` (sendo 1 o ID do usuário a ser buscado) para visualizar o retorno da consulta ao BD. Se buscar por um ID inexistente, receberá a mensagem definida na condicional que checa se há usuários ou não. Podemos, inclusive, alterar o texto da mensagem para que faça mais sentido. =)
