@@ -266,7 +266,7 @@ Por fim, criaremos uma pasta (em `./backend` ) chamada `database` (que será uti
 
 ## Página Inicial
 
-**Branch:** [[feature/homepage](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/homepage)]
+**Branch:** [feature/homepage](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/homepage)
 
 Antes de entrarmos nas telas de usuários, vamos apenas ajustar nossa Homepage. Dessa forma, já faremos uma revisão breve sobre os principais conceitos do Express, MVC (no caso apenas o V - View e o C - Controller) e EJS (template engine). Lembrando que grande parte do trabalho já foi feita pelo Express Generator.
 
@@ -405,3 +405,72 @@ E, para finalizarmos, vamos atualizar nossa _view_ `index` (em `./backend/views/
 Com isso finalizamos nossa página inicial!
 
 Sim, está super simples - mas a ideia é partirmos logo para o Sequelize, e não criarmos um front bonito para a Homepage.
+
+## Templates Parciais
+
+**Branch:** [feature/partial-templates](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/partial-templates)
+
+Um último passo antes de entrarmos na parte de usuários é isolarmos as _tags_ HTML `head` , `header` e `footer` como _templates_ parciais (ou _subtemplates_). Mas... por quê?
+
+Como essas 3 _tags_ sempre se repetem, isolarmos elas e importarmos em cada _template_ faz muito mais sentido. Assim, evitamos códigos duplicados e só precisamos atualizar um trecho quando houver algum tipo de alteração.
+
+São pouquíssimos passos, quase que um `Control + C` / `Control + V` .
+
+### Pasta partials
+
+O primeiro passo é criarmos a pasta `./backend/views/partials` (partindo já de `./backend` ):
+
+``` sh
+cd views && mkdir partials
+```
+
+Dentro dessa pasta criaremos os 3 arquivos:
+
+``` sh
+cd partials && touch head.ejs header.ejs footer.ejs
+```
+
+### Head, Header e Footer
+
+Agora tudo o que temos que fazer é recortar cada trecho e colar no respectivo _subtemplate_. Mas... já que vamos mexer nisso, já vamos adicionar algumas classes (respeitando o padrão BEM, onde organizamos os seletores por Bloco, Elemento e Modificador) para darmos um 'talento' nesse estilo.
+
+Lembre-se de que não há um `header` nem um `footer` definido ainda, então vamos criar algo bem simples.
+
+**./backend/views/partials/head.ejs**
+
+Já vamos incluir a abertura da tag `body` também.
+
+``` ejs
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+
+<body>
+```
+
+**./backend/views/partials/header.ejs**
+
+Vamos usar o `title` como `h1` em nosso `header` .
+
+``` ejs
+<header class="header">
+  <h1 class="header__title"><%= title %></h1>
+</header>
+```
+
+**./backend/views/partials/footer.ejs**
+
+No `footer` usaremos o `title` também, acompanhado do símbolo HTML de _copyright_ e do ano atual. Repare que estamos usando JS puro dentro da sintaxe de renderização do EJS. E fechamos o `body` .
+
+``` ejs
+<footer class="footer">
+  <p class="footer__copy"><%= title %> &copy; | <%= new Date().getFullYear() %></p>
+</footer>
+</body>
+
+</html>
+```
