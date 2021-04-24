@@ -1,22 +1,14 @@
+const Sequelize = require('sequelize'),
+  config = require('../config/database'),
+  db = new Sequelize(config)
+
 const controller = {
-  list: (req, res, next) => {
+  list: async (req, res, next) => {
+    const users = await db.query('SELECT * from usuarios', { type: Sequelize.QueryTypes.SELECT })
     res.render('users', {
       title: 'Página de Usuários',
       subtitle: 'Confira a seguir os usuários cadastrados em nosso banco de dados',
-      users: [
-        {
-          id: 1,
-          name: 'Fulano',
-          lastName: 'de Tal',
-          email: 'fulano@detal.com',
-        },
-        {
-          id: 2,
-          name: 'Ciclano',
-          lastName: 'Tal Qual',
-          email: 'ciclano@talqual.com',
-        }
-      ]
+      users
     })
   }
 }
