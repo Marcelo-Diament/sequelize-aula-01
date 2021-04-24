@@ -139,7 +139,7 @@ npm install express-generator -g
 npm install -g nodemon
 ```
 
-## Setup do Projeto [feature/project-setup]
+## Setup do Projeto [[feature/project-setup](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/project-setup)]
 
 Agora vamos, finalmente criar nosso projeto! =)
 
@@ -262,7 +262,7 @@ Estamos simplesmente declarando qual o caminho para o arquivo com os dados de co
 
 Por fim, criaremos uma pasta (em `./backend` ) chamada `database` (que será utilizada em práticas futuras).
 
-## Página Inicial [feature/homepage]
+## Página Inicial [[feature/homepage](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/homepage)]
 
 Antes de entrarmos nas telas de usuários, vamos apenas ajustar nossa Homepage. Dessa forma, já faremos uma revisão breve sobre os principais conceitos do Express, MVC (no caso apenas o V - View e o C - Controller) e EJS (template engine). Lembrando que grande parte do trabalho já foi feita pelo Express Generator.
 
