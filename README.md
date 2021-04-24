@@ -722,3 +722,24 @@ Tudo o que precisamos fazer é mover o trecho referente à listagem de usuários
   </table>
 </section>
 ```
+
+### Estilo Listagem users
+
+E precisamos estilizar essa nossa tabela, concorda? Podemos acrescentar o seguinte estilo ao nosso `./backend/public/stylesheets/style.css` :
+
+``` css
+.users-table {
+    font-weight: bold;
+    margin: 16px auto;
+}
+
+.users-table thead {
+    background-color: var(--azul);
+    color: var(--branco);
+}
+
+.users-table th,
+.users-table td {
+    padding: 6px 12px;
+}
+```
