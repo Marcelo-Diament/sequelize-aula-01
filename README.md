@@ -770,3 +770,13 @@ Logo no início do arquivo `./backend/controllers/users.js`, vamos importar o m�
 const Sequelize = require('sequelize'),
   config = require('../config/database')
 ```
+
+### Conectando com o DB
+
+Na sequência da `const config`, definiremos a nossa conexão, chamando-a de `db`:
+
+```js
+db = new Sequelize(config)
+```
+
+Estamos instanciando a classe Sequelize e passando os dados de conexão como argumento.
