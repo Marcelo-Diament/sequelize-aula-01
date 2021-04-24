@@ -654,6 +654,7 @@ Dentro dessa `section` , teremos uma `table` e, dentro dela, uma `tr` (_table ro
     <table class="users-table">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Nome</th>
           <th>Sobrenome</th>
           <th>Email</th>
@@ -712,6 +713,7 @@ Tudo o que precisamos fazer é mover o trecho referente à listagem de usuários
   <table class="users-table">
     <thead>
       <tr>
+        <th>ID</th>
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
@@ -720,7 +722,7 @@ Tudo o que precisamos fazer é mover o trecho referente à listagem de usuários
     <tbody>
       <% for(let user of users) { %>
       <tr id="user<%= user.id %>" class="user">
-        <td class="user__id"><%=user.id%></td>
+        <td class="user__id"><%= user.id %></td>
         <td class="user__name"><%= user.name %></td>
         <td class="user__lastname"><%= user.lastName %></td>
         <td class="user__email"><%= user.email %></td>
