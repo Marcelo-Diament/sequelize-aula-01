@@ -801,3 +801,7 @@ list: async (req, res, next) => {
     })
 }
 ```
+
+### Atualizando a View
+
+Como estávamos usando os nomes das propriedades em inglês, precisamos atualizar nossa _partial view_ `users`, atualizando o nome das propriedades (colunas da tabela `usuarios`) para português. Basta atualizarmos as chaves/propriedades `name` para `nome` e `lastName` para `sobrenome`.
