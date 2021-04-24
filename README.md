@@ -692,6 +692,10 @@ Tudo o que precisamos fazer é mover o trecho referente à listagem de usuários
   </section>
   <% if(users && users.length > 0) { %>
   <%- include('partials/users') %>
+  <% } else { %>
+  <section>
+    <h3>Ops... não há usuários cadastrados no banco de dados</h3>
+  </section>
   <% } %>
 </main>
 <%- include('partials/footer') %>
