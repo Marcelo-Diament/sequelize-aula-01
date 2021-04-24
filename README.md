@@ -364,18 +364,40 @@ const controller = {
 module.exports = controller
 ```
 
-Nesse caso só estamos prevendo um método - `index` - que responde ao acesso à página inicial sob o método `GET` (por isso o método do Express utilizado na rota é o `get()`).
+Nesse caso só estamos prevendo um método - `index` - que responde ao acesso à página inicial sob o método `GET` (por isso o método do Express utilizado na rota é o `get()` ).
 
 ### Atualização Rota index
 
-Agora precisamos utilizar o _controller_ `index` na respectiva rota. Vamos importá-lo (com `require()`) e atrelá-lo à rota para a página inicial (`'/'`) sob o método GET (`get()`). No final das contas, estamos apenas utilizando o método `index` do _controller_ como segundo parâmetro da rota. Então o arquivo `./backend/routes/index.js` fica assim (já com algumas alterações de escrita):
+Agora precisamos utilizar o _controller_ `index` na respectiva rota. Vamos importá-lo (com `require()` ) e atrelá-lo à rota para a página inicial ( `'/'` ) sob o método GET ( `get()` ). No final das contas, estamos apenas utilizando o método `index` do _controller_ como segundo parâmetro da rota. Então o arquivo `./backend/routes/index.js` fica assim (já com algumas alterações de escrita):
 
-```js
+``` js
 const express = require('express'),
-  router = express.Router(),
-  controller = require('../controllers/index')
+    router = express.Router(),
+    controller = require('../controllers/index')
 
 router.get('/', controller.index)
 
 module.exports = router
 ```
+
+### Atualização da View index
+
+E, para finalizarmos, vamos atualizar nossa _view_ `index` (em `./backend/views/index.ejs`). Somente trocaremos a frase padrão pela propriedade `subtitle` que criamos no _controller_:
+
+```ejs
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p><%= subtitle %></p>
+  </body>
+</html>
+```
+
+Com isso finalizamos nossa página inicial!
+
+Sim, está super simples - mas a ideia é partirmos logo para o Sequelize, e não criarmos um front bonito para a Homepage.
