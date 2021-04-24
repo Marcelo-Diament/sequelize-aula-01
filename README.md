@@ -181,3 +181,11 @@ Nesse arquivo (dentro da pasta `./backend`) vamos substituir o trecho `node` do 
 ```
 
 Dependendo de quando estiver realizando essa prática as versões das dependências podem mudar.
+
+### Dependências Locais
+
+Agora já vamos deixar instaladas as dependências. Vamos instalar o pacote 'sequelize' e o pacote 'mysql2' de uma só vez:
+
+```sh
+npm install --save sequelize mysql2
+```
