@@ -791,6 +791,7 @@ Vamos criar a nossa _raw query_ (ou seja, nossa consulta em 'SQL puro') e passar
 
 ``` js
 list: async (req, res, next) => {
+    // No trecho abaixo, acessamos o método query e passamos a query em si como argumento 1 e um objeto de opções no argumento 2, informanto o tipo de query que estamos utilizando - no caso um select
     const users = await db.query('SELECT * from usuarios', {
         type: Sequelize.QueryTypes.SELECT
     })
