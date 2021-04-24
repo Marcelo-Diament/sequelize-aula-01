@@ -182,10 +182,16 @@ Nesse arquivo (dentro da pasta `./backend`) vamos substituir o trecho `node` do 
 
 Dependendo de quando estiver realizando essa prática as versões das dependências podem mudar.
 
-### Dependências Locais
+### Dependências do Projeto
 
 Agora já vamos deixar instaladas as dependências. Dentro da pasta `backend` vamos instalar o pacote 'sequelize' e o pacote 'mysql2' de uma só vez:
 
 ```sh
 cd backend && npm install --save sequelize mysql2
+```
+
+E vamos instalar, também, a dependência de desenvolvimento 'sequelize-cli':
+
+```sh
+npm install --save -D sequelize-cli
 ```
