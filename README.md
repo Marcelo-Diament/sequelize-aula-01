@@ -753,3 +753,20 @@ E precisamos estilizar essa nossa tabela, concorda? Podemos acrescentar o seguin
     padding: 6px 12px;
 }
 ```
+
+## Leitura de Usuários do Banco
+
+**Branch:** [feature/read-db-users](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/read-db-users)
+
+Vamos realizar nossa primeira consulta no Banco de Dados - vamos **ler** os usuários cadastrados (o **C** do **CRUD**)!
+
+Toda a mágica vai acontecer no _controller_ de usuários. Vamos lá!
+
+### Importando os Dados para Conexão com o BD
+
+Logo no início do arquivo `./backend/controllers/users.js`, vamos importar o módulo do Sequelize e os dados de acesso ao banco:
+
+```js
+const Sequelize = require('sequelize'),
+  config = require('../config/database')
+```
