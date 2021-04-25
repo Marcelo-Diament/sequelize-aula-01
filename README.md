@@ -1334,3 +1334,48 @@ router.post('/:id', controller.update)
 ```
 
 Isolamos o que é específico do botão 'Editar' e 'Excluir' (cores) e utilizamos um seletor mais genérico para aplicarmos as propriedades em comum entre eles.
+
+Também precisamos aplicar um estilo ao formulário de edição. Poderíamos fazer da mesma maneira, mas só pra não nos 'habiutarmos' com um caminho único, vamos adicionar o seletor do formulário de edição aos seletores do formulário de cadastro:
+
+``` css
+.register-user,
+.edit-user {
+    display: block;
+    margin: 16px auto;
+}
+
+.register-user__title,
+.edit-user__title {
+    font-size: 24px;
+}
+
+.register-user__subtitle,
+.edit-user__subtitle {
+    color: var(--chumbo);
+    font-size: 20px;
+}
+
+.register-user .form,
+.edit-user .form {
+    margin: 24px auto;
+    min-width: max-content;
+    width: 25vw;
+}
+
+.register-user .form__input-container,
+.edit-user .form__input-container {
+    display: block;
+    margin: 16px auto;
+}
+
+.register-user .form__input-container label,
+.edit-user .form__input-container label {
+    color: var(--chumbo);
+}
+
+.register-user .form__input-container input,
+.edit-user .form__input-container input {
+    padding: 4px 8px;
+    width: -webkit-fill-available;
+}
+```
