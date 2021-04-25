@@ -1639,7 +1639,11 @@ E aí? Topa essa desafio?
 
 ___
 
-## Botão CTA Usuários
+## Melhorias
+
+A seguir, mais alguns _steps_ para implantação de melhorias opcionais (não fazem mais parte da prática, mas vale realizá-las também).
+
+### Botão CTA Usuários
 
 Vamos criar um botão (link) CTA (Call To Action) para levarmos o visitante da página inicial para a listagem de usuários.
 
