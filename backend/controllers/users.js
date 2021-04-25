@@ -38,6 +38,19 @@ const controller = {
     } else {
       res.status(500).send('Ops... Algo de errado não deu certo!')
     }
+  },
+  delete: async (req, res, next) => {
+    const user = await db.query(`DELETE from usuarios WHERE usuarios.id = :id`, {
+      replacements: {
+        id: req.params.id
+      },
+      type: Sequelize.QueryTypes.DELETE
+    })
+    if (!user) {
+      res.redirect('/users')
+    } else {
+      res.status(500).send('Ops... Algo de errado não deu certo!')
+    }
   }
 }
 
