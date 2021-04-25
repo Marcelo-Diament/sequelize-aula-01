@@ -1253,7 +1253,7 @@ E, claro, também vamos adicionar um botão 'Editar' também:
 
 Bom, tudo o que precisamos fazer é criar a nossa _query_ de alteração, seguindo o mesmo esquema das demais.
 
-Capturamos os dados do formulário via `req.body` (desestruturando as propriedades) e o `id` por `req,params.id`, trocamos o método/`type` e incluímos nossa _query_:
+Capturamos os dados do formulário via `req.body` (desestruturando as propriedades) e o `id` por `req, params.id` , trocamos o método/ `type` e incluímos nossa _query_:
 
 ``` js
 update: async (req, res, next) => {
@@ -1282,14 +1282,55 @@ update: async (req, res, next) => {
 }
 ```
 
-Observação: poderíamos direcionar o usuário para a visualização do próprio perfil, adicionando o `id` ao caminho (`path`) do `redirect()`. Mas, como estamos tratando da mesma tela (exatamente), isso prejudicaria a experiência do nosso usuário (ele pode achar que não houve atualização).
+Observação: poderíamos direcionar o usuário para a visualização do próprio perfil, adicionando o `id` ao caminho ( `path` ) do `redirect()` . Mas, como estamos tratando da mesma tela (exatamente), isso prejudicaria a experiência do nosso usuário (ele pode achar que não houve atualização).
 
 ### Rota de Edição do Usuário
 
 Mais do mesmo né! Bora criar essa rota!
 
-```js
+``` js
 router.post('/:id', controller.update)
 ```
- É a mesma rota da visualização de um usuário único, mas com o método `POST` (e com o método do _controller_ `update`).
- 
+
+ É a mesma rota da visualização de um usuário único, mas com o método `POST` (e com o método do _controller_ `update` ).
+
+ ### Estilo do Botão de Edição
+
+ Por fim, vamos estilizar nosso botão 'Editar'. Porém, como o estilo é muito parecido com o de 'Excluir', vamos reaproveitar as propriedades em comum. Nosso estilo (referente a esses botões) ficará assim:
+
+``` css
+ .users-table [class*="--btn"] {
+     border: none;
+     display: inline-block;
+     font-weight: bolder;
+     text-align: center;
+     margin: auto;
+     padding: 6px 12px;
+ }
+
+ .users-table [class*="--btn"]:hover {
+     cursor: pointer;
+ }
+
+ .users-table .user__edit--btn {
+     background-color: var(--amarelo);
+     color: var(--chumbo);
+ }
+
+ .users-table .user__edit--btn:hover {
+     background-color: var(--chumbo);
+     color: var(--amarelo);
+ }
+
+ .users-table .user__delete--btn {
+     background-color: var(--vermelho);
+     color: var(--branco);
+ }
+
+ .users-table .user__delete--btn:hover {
+     background-color: var(--chumbo);
+     color: var(--vermelho);
+ }
+```
+
+Isolamos o que é específico do botão 'Editar' e 'Excluir' (cores) e utilizamos um seletor mais genérico para aplicarmos as propriedades em comum entre eles.
