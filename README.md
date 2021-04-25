@@ -1556,3 +1556,43 @@ Enfim, nosso _template_ parcial `users` ficou assim:
 </section>
 <% } %>
 ```
+
+### Isolando o Formulário de Edição
+
+Simplesmente iremos mover o formulário de edição de usuário para um _template_ parcial próprio.
+
+**`./backend/views/partials/users.ejs`**
+
+``` ejs
+<% if(users && users.length === 1 && edit && edit === true) {
+  user = users[0]
+%>
+<%- include('userEdit.ejs') %>
+<% } %>
+```
+
+**`./backend/views/partials/userRegister.ejs`**
+
+``` ejs
+<section id="editUserSection" class="edit-user">
+  <form action="" method="POST" class="form">
+    <div class="form__input-container">
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" id="nome" required value="<%= user.nome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="sobrenome">Sobrenome</label>
+      <input type="text" name="sobrenome" id="sobrenome" required value="<%= user.sobrenome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required value="<%= user.email %>">
+    </div>
+    <div class="form__btns">
+      <button>Editar Usuário</button>
+    </div>
+  </form>
+</section>
+```
+
+Dessa forma nosso código fica mais limpo, legível e organizado.
