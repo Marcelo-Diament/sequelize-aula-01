@@ -1678,6 +1678,22 @@ E vamos adicionar um estilo para esse CTA:
 
 Tá pronto!
 
+## Menu Superior
+
+Que tal incluirmos os links de navegação para o nosso projeto?
+
+**View**
+
+Vamos incluir links para a página inicial, página de usuários e para o repositório (link externo).
+
+``` ejs
+<nav class="header__nav">
+  <a href="/" target="_self" rel="next" title="Acessar página iniciar">Início</a>
+  <a href="/users" target="_self" rel="next" title="Ver listagem de usuários">Usuários</a>
+  <a href="https://github.com/Marcelo-Diament/sequelize-aula-01" target="_blank" rel="author" title="Ver repositório">Repositório</a>
+</nav>
+```
+
 ___
 
 # Obrigado pela visita!
