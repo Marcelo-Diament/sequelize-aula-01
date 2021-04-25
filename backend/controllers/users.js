@@ -39,6 +39,24 @@ const controller = {
       res.status(500).send('Ops... Algo de errado não deu certo!')
     }
   },
+  update: async (req, res, next) => {
+    const { nome, sobrenome, email } = req.body
+    let { id } = req.params
+    const user = await db.query(`UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome, email = :email WHERE usuarios.id = :id`, {
+      replacements: {
+        id,
+        nome,
+        sobrenome,
+        email
+      },
+      type: Sequelize.QueryTypes.UPDATE
+    })
+    if (user) {
+      res.redirect(`/users`)
+    } else {
+      res.status(500).send('Ops... Algo de errado não deu certo!')
+    }
+  },
   delete: async (req, res, next) => {
     const user = await db.query(`DELETE from usuarios WHERE usuarios.id = :id`, {
       replacements: {
