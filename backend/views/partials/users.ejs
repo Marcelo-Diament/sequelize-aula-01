@@ -6,9 +6,10 @@
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
-        <% if (edit === true && users.length === 1) { %>
+        <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <th>Ver</th>
-        <% } else if (edit === false) { %>
+        <% } %>
+        <% if (edit === false) { %>
         <th>Editar</th>
         <% } %>
         <th>Excluir</th>
@@ -21,13 +22,14 @@
         <td class="user__name"><%= user.nome %></td>
         <td class="user__lastname"><%= user.sobrenome %></td>
         <td class="user__email"><%= user.email %></td>
-        <% if (edit === true && users.length === 1) { %>
+        <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <td class="user__see">
           <form action="/users/<%= user.id %>" method="GET">
             <button class="user__see--btn">Ver</button>
           </form>
         </td>
-        <% } else if (edit === false) { %>
+        <% } %>
+        <% if (edit === false) { %>
         <td class="user__edit">
           <form action="/users/<%= user.id %>" method="GET">
             <input type="hidden" name="edit" value="edit">
