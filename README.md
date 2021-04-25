@@ -892,17 +892,17 @@ const usuario = await db.query(`SELECT * from usuarios WHERE usuarios.id = :id`,
 
 ### Adição de Rota
 
-Por fim, precisamos criar uma rota que receba o parâmetro `id` e retorne o novo método criado (`index`) do nosso _controller_:
+Por fim, precisamos criar uma rota que receba o parâmetro `id` e retorne o novo método criado ( `index` ) do nosso _controller_:
 
-```js
+``` js
 router.get('/:id', controller.index)
 ```
 
 Simples assim! Apenas duas observações:
 
-- Como já sabemos, a sintaxe para indicar a presença de um parâmetro é `:nomeDoParametro`, no caso `:id`. Através desse nome que acessaremos o parâmetro vindo na _request_ (`req.params.nomeDoParametro`)
+* Como já sabemos, a sintaxe para indicar a presença de um parâmetro é `:nomeDoParametro`, no caso `:id`. Através desse nome que acessaremos o parâmetro vindo na _request_ (`req.params.nomeDoParametro`)
 
-- Repare que, como o arquivo da rota de usuários já foi chamado dentro da rota `users` (lá no arquivo `./backend/app.js` - `app.use('/users', usersRouter)`), não devemos repetir esse trecho `/users` no método `get()` de `router`.
+* Repare que, como o arquivo da rota de usuários já foi chamado dentro da rota `users` (lá no arquivo `./backend/app.js` - `app.use('/users', usersRouter)`), não devemos repetir esse trecho `/users` no método `get()` de `router`.
 
 Agora basta acessar `localhost:3000/users/1` (sendo 1 o ID do usuário a ser buscado) para visualizar o retorno da consulta ao BD. Se buscar por um ID inexistente, receberá a mensagem definida na condicional que checa se há usuários ou não. Podemos, inclusive, alterar o texto da mensagem para que faça mais sentido. =)
 
@@ -921,3 +921,37 @@ Nessa prática faremos o seguinte:
 3. Vamos criar uma rota específica, com o mesmo _path_ `/` (que representa, dentro do arquivo `./backend/routes/users.js`, `localhost:3000/users`) - mas agora com o método `post`.
 
 Por padrão, o método `PATCH` permitiria adicionarmos ou editarmos um usuário. Mas vamos usar o `POST` para termos cada etapa do CRUD separada.
+
+### Formulário de Cadastro
+
+Vamos criar o arquivo `./backend/views/partials/userRegister.ejs` (a partir da pasta `./backend` ) e abrir na IDE:
+
+``` sh
+touch views/partials/userRegister.ejs && code views/partials/userRegister.ejs
+```
+
+Dentro dessa _partial view_ vamos criar um formulário bem simples:
+
+``` ejs
+<section id="addUserSection" class="register-user">
+  <h2 class="register-user__title">Cadastro de Usuário</h2>
+  <h3 class="register-user__subtitle">Preencha o formulário a seguir e clique em 'Adicionar Usuário'</h3>
+  <form action="" method="POST" class="form">
+    <div class="form__input-container">
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" id="nome" required placeholder="Benedito">
+    </div>
+    <div class="form__input-container">
+      <label for="sobrenome">Sobrenome</label>
+      <input type="text" name="sobrenome" id="sobrenome" required placeholder="Calixto">
+    </div>
+    <div class="form__input-container">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required placeholder="bene@dito.com">
+    </div>
+    <div class="form__btns">
+      <button>Adicionar Usuário</button>
+    </div>
+  </form>
+</section>
+```
