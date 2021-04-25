@@ -1598,3 +1598,11 @@ Como já estamos dentro da pasta `partials`, não devemos declará-la novamente.
 ```
 
 Dessa forma nosso código fica mais limpo, legível e organizado.
+
+Com isso finalizamos as principais etapas da nossa prática!
+
+## Desafio!
+
+Há muita coisa que ainda pode ser melhorada nesse repositório - como inclusão de um botão 'Voltar', inclusão de links em um menu...
+
+E aí? Topa essa desafio?
