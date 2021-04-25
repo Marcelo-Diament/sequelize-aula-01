@@ -12,5 +12,8 @@
     <h3>Ops... não encontramos nenhum usuário no banco de dados</h3>
   </section>
   <% } %>
+  <% if((users && users.length > 1) || !users || users.length === 0) { %>
+  <%- include('partials/userRegister') %>
+  <% } %>
 </main>
 <%- include('partials/footer') %>
