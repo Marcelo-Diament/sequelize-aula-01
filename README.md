@@ -924,6 +924,8 @@ Por padrão, o método `PATCH` permitiria adicionarmos ou editarmos um usuário.
 
 ### Formulário de Cadastro
 
+**Partial View**
+
 Vamos criar o arquivo `./backend/views/partials/userRegister.ejs` (a partir da pasta `./backend` ) e abrir na IDE:
 
 ``` sh
@@ -956,4 +958,14 @@ Dentro dessa _partial view_ vamos criar um formulário bem simples:
 </section>
 ```
 
-Perceba que o atributo `action` está vazio. E o método declarado é o `POST`. Ou seja, os dados serão enviados para `localhost:3000/users` com o método `POST`.
+Perceba que o atributo `action` está vazio. E o método declarado é o `POST` . Ou seja, os dados serão enviados para `localhost:3000/users` com o método `POST` .
+
+**Include na View users**
+
+Agora vamos incluir o formulário na _view_ `users` - mas só se estivermos na listagem de usuários (para isso usaremos uma condição checando se o `length` de `users` é maior que 1 ou é igual a 0, para quando não houver usuários retornados).
+
+``` ejs
+<% if((users && users.length > 1) || !users || users.length === 0) { %>
+  <%- include('partials/userRegister') %>
+<% } %>
+```
