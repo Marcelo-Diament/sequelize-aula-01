@@ -6,6 +6,7 @@
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
+        <th>Editar</th>
         <th>Excluir</th>
       </tr>
     </thead>
@@ -16,6 +17,11 @@
         <td class="user__name"><%= user.nome %></td>
         <td class="user__lastname"><%= user.sobrenome %></td>
         <td class="user__email"><%= user.email %></td>
+        <td class="user__edit">
+          <form action="/users/<%= user.id %>" method="GET">
+            <button class="user__edit--btn">Editar</button>
+          </form>
+        </td>
         <td class="user__delete">
           <form action="/users/<%= user.id %>/delete" method="POST">
             <button class="user__delete--btn">Excluir</button>
@@ -26,3 +32,29 @@
     </tbody>
   </table>
 </section>
+<%
+  if(users && users.length === 1) {
+  user = users[0]
+%>
+<section id="editUserSection" class="edit-user">
+  <h2 class="edit-user__title">Edição de Usuário</h2>
+  <h3 class="edit-user__subtitle">Preencha o formulário a seguir e clique em 'Editar Usuário'</h3>
+  <form action="" method="POST" class="form">
+    <div class="form__input-container">
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" id="nome" required value="<%= user.nome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="sobrenome">Sobrenome</label>
+      <input type="text" name="sobrenome" id="sobrenome" required value="<%= user.sobrenome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required value="<%= user.email %>">
+    </div>
+    <div class="form__btns">
+      <button>Editar Usuário</button>
+    </div>
+  </form>
+</section>
+<% } %>
