@@ -955,3 +955,5 @@ Dentro dessa _partial view_ vamos criar um formulário bem simples:
   </form>
 </section>
 ```
+
+Perceba que o atributo `action` está vazio. E o método declarado é o `POST`. Ou seja, os dados serão enviados para `localhost:3000/users` com o método `POST`.
