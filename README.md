@@ -1474,7 +1474,9 @@ _No trecho acima ignoramos o restante do código do arquivo `./backend/controlle
 
 **Condicionais na _view_**
 
-Para finalizar essa melhoria, vamos incluir algumas condicionais para definirmos se o formulário de edição deve aparecer ou não - bem como quando os botões 'Ver' e 'Editar' devem aparecer. E, claro - precisamos incluir o _query param_ `edit=edit` no botão de editar, para que tudo isso funcione corretamente!
+Para finalizar essa melhoria, vamos incluir algumas condicionais para definirmos se o formulário de edição deve aparecer ou não - bem como quando os botões 'Ver' e 'Editar' devem aparecer. O botão 'Ver' só não aparecerá quando estivermos visualizando os detalhes do usuário. E o botão 'Editar' não deverá aparecer quando estivermos editando um usuário.
+
+E, claro - precisamos incluir o _query param_ `edit=edit` no botão de editar, para que tudo isso funcione corretamente!
 
 Detalhe importante: sempre que enviamos informações via método `GET` , os atributos `name` e `value` formam os pares de chave/valor do _query param_ - por isso acrescentamos um `input` do tipo `hidden` no formulário de edição (de forma a aumentarmos a quantidade de conhecimento aplicada nessa prática única). ; )
 
@@ -1489,9 +1491,10 @@ Enfim, nosso _template_ parcial `users` ficou assim:
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
-        <% if (edit === true && users.length === 1) { %>
+        <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <th>Ver</th>
-        <% } else if (edit === false) { %>
+        <% } %>
+        <% if (edit === false) { %>
         <th>Editar</th>
         <% } %>
         <th>Excluir</th>
@@ -1504,13 +1507,14 @@ Enfim, nosso _template_ parcial `users` ficou assim:
         <td class="user__name"><%= user.nome %></td>
         <td class="user__lastname"><%= user.sobrenome %></td>
         <td class="user__email"><%= user.email %></td>
-        <% if (edit === true && users.length === 1) { %>
+        <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <td class="user__see">
           <form action="/users/<%= user.id %>" method="GET">
             <button class="user__see--btn">Ver</button>
           </form>
         </td>
-        <% } else if (edit === false) { %>
+        <% } %>
+        <% if (edit === false) { %>
         <td class="user__edit">
           <form action="/users/<%= user.id %>" method="GET">
             <input type="hidden" name="edit" value="edit">
