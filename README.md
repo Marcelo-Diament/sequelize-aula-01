@@ -1379,3 +1379,29 @@ Também precisamos aplicar um estilo ao formulário de edição. Poderíamos faz
     width: -webkit-fill-available;
 }
 ```
+
+## Melhorias
+
+**Branch:** [feature/improvements](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/improvements)
+
+### Botão 'Ver'
+
+Já temos o botão 'Editar' e 'Excluir' para cada usuário. Vamos adicionar também o botão 'Ver'.
+
+No _template_ parcial `users` , vamos incluir o botão antes do botão 'Editar' (e no `thead` > `tr` também):
+
+**`tbody` > `tr`**
+
+``` ejs
+<td class="user__see">
+  <form action="/users/<%= user.id %>" method="GET">
+    <button class="user__see--btn">Ver</button>
+  </form>
+</td>
+```
+
+**`thead` > `tr`**
+
+```ejs
+<th>Ver</th>
+```
