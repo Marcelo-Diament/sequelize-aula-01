@@ -1388,6 +1388,8 @@ Também precisamos aplicar um estilo ao formulário de edição. Poderíamos faz
 
 Já temos o botão 'Editar' e 'Excluir' para cada usuário. Vamos adicionar também o botão 'Ver'.
 
+**Views**
+
 No _template_ parcial `users` , vamos incluir o botão antes do botão 'Editar' (e no `thead` > `tr` também):
 
 ** `tbody` > `tr` **
@@ -1406,6 +1408,8 @@ No _template_ parcial `users` , vamos incluir o botão antes do botão 'Editar' 
 <th>Ver</th>
 ```
 
+**Estilo**
+
 E, claro, não podemos nos esquecer de seu estilo:
 
 ``` css
@@ -1419,3 +1423,51 @@ E, claro, não podemos nos esquecer de seu estilo:
     color: var(--azul);
 }
 ```
+
+**Dinâmica**
+
+Já que essa _branch_ trata de melhorias, vamos melhorar esse esquema! A ideia é: quando estivermos editando um usuário, não precisamos visualizar o botão 'Editar'. E quando estamos vendo os detalhes do usuário, não precisamos do botão 'Ver'.
+
+No entanto, estamos usando a mesma _view_. Claro que poderíamos ter outras rotas (ou usar o `fetch` para diferenciarmos o _controller_ de acordo com o método da rota). Mas... a ideia aqui é explorar os recursos básicos, então vamos aprender a capturar os _query params_ (aqueles pares de chave e valor enviado através da URL, após o `?` , por exemplo: `google.com?utm_source=instagram&utm_campaign=natal` ). Bora codar!
+
+**Métodos do Controller**
+
+Vamos incluir a propriedade `edit` no retorno dos métodos `list` e `index` do _controller_ `users` . No método `list` o valor sempre será `false` (mas precisamos passá-lo pois usamos a mesma _view_). Já no método `index` , vamos verificar se recebemos o _query param_ `edit` com o valor `edit` . Se for verdadeira, consideramos que é uma tela de edição, senão, é a tela de visualização.
+
+Para capturarmos esse _query param_ basta acessarmos `req.query` e acessarmos o nome dele (no caso, `req.query.edit` ). Então verificamos se seu valor é igual a `edit` (poderia ser outro valor).
+
+``` js
+const controller = {
+    list: async (req, res, next) => {
+        const users = await db.query('SELECT * from usuarios', {
+            type: Sequelize.QueryTypes.SELECT
+        })
+        res.render('users', {
+            title: 'Página de Usuários',
+            subtitle: 'Confira a seguir os usuários cadastrados em nosso banco de dados',
+            users,
+            edit: false
+        })
+    },
+    index: async (req, res, next) => {
+        const user = await db.query(`SELECT * from usuarios WHERE usuarios.id = ${req.params.id}`, {
+            type: Sequelize.QueryTypes.SELECT
+        })
+        req.query.edit === 'edit' ?
+            res.render('users', {
+                title: 'Página de Edição o Usuário',
+                subtitle: 'Preencha o formulário para editar seu usuário',
+                users: user,
+                edit: true
+            }) :
+            res.render('users', {
+                title: 'Página do Usuário',
+                subtitle: 'Confira a seguir o usuário encontrado em nosso banco de dados',
+                users: user,
+                edit: false
+            })
+    }
+}
+```
+
+_No trecho acima ignoramos o restante do código do arquivo `./backend/controllers/users.js`._
