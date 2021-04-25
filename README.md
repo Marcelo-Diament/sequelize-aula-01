@@ -1390,7 +1390,7 @@ Já temos o botão 'Editar' e 'Excluir' para cada usuário. Vamos adicionar tamb
 
 No _template_ parcial `users` , vamos incluir o botão antes do botão 'Editar' (e no `thead` > `tr` também):
 
-**`tbody` > `tr`**
+** `tbody` > `tr` **
 
 ``` ejs
 <td class="user__see">
@@ -1400,8 +1400,22 @@ No _template_ parcial `users` , vamos incluir o botão antes do botão 'Editar' 
 </td>
 ```
 
-**`thead` > `tr`**
+** `thead` > `tr` **
 
-```ejs
+``` ejs
 <th>Ver</th>
+```
+
+E, claro, não podemos nos esquecer de seu estilo:
+
+``` css
+.users-table .user__see--btn {
+    background-color: var(--azul);
+    color: var(--branco);
+}
+
+.users-table .user__see--btn:hover {
+    background-color: var(--chumbo);
+    color: var(--azul);
+}
 ```
