@@ -910,7 +910,7 @@ Agora basta acessar `localhost:3000/users/1` (sendo 1 o ID do usuário a ser bus
 
 **Branch:** [feature/add-user](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/add-user)
 
-Beleza! Já conseguimos ler um ou todos os usuários do nosso Banco de Dados! Agora vamos ver como fazer para adicionarmos um novo usuário.
+Beleza! Já conseguimos ler um ou todos os usuários do nosso Banco de Dados! Agora vamos ver como fazer para adicionarmos um novo usuário (letra C, de _Create_, do CRUD).
 
 Nessa prática faremos o seguinte:
 
@@ -1088,3 +1088,33 @@ router.post('/', controller.add)
 ```
 
 Simples assim! Agora é só preencher o formulário e ver seu usuário sendo adicionado (lembre-se de que o MySQL deve ter sido ativado pelo XAMPP).
+
+## Remoção de Usuário do Banco
+
+Vimos como adicionar um usuário, consultar um ou todos os usuários e agora veremos como apagar um usuário a partir de seu ID (D do CRUD, de _Delete_).
+
+### View
+
+**Atualizar Listagem de Usuário**
+
+Vamos acrescentar um botão 'Excluir' na linha de cada usuário (na tabela de usuários). E precisaremos adicionar uma coluna à tabela também. Essa tarefa é bem tranquila, no arquivo `./backend\views\partials\users.ejs` faremos o seguinte (nesses trechos específicos):
+
+**Dentro da tag `thead` > `tr` , na última posição**
+
+``` ejs
+<th>Excluir</th>
+```
+
+**Dentro da tag `tbody` > `tr` , na última posição**
+
+``` ejs
+<td class="user__delete">
+  <form action="/users/<%= user.id %>/delete" method="POST">
+    <button class="user__delete--btn">Excluir</button>
+  </form>
+</td>
+```
+
+Poderíamos usar o atributo `onclick` e chamar uma função de algum _script_, mas - para melhor compreensão - teremos esse formulário dentro do _table data_ (_tag_ `td` ).
+
+> Importante: formulários HTML5 só aceitam os métodos `GET` e `POST` , então não conseguimos enviar através do método `DELETE` diretamente. Poderíamos enviar o método `DELETE` através de um `fetch` , por exemplo. Mas será mais simples enviarmos para uma rota com um caminho distinto, como veremos a seguir (logo, o método utilizado será o `POST` ).
