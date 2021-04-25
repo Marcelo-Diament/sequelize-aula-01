@@ -97,14 +97,44 @@ main {
   margin: 24px auto;
 }
 
+.users-table th,
+.users-table td {
+  padding: 6px 12px;
+}
+
+.users-table td {
+  display: block;
+}
+
+.users-table td:not(:nth-child(n+5))::before {
+  content: attr(data-title) ": ";
+  font-weight: bolder;
+}
+
 .users-table thead {
   background-color: var(--azul);
   color: var(--branco);
 }
 
-.users-table th,
-.users-table td {
-  padding: 6px 12px;
+.users-table thead tr th:first-child {
+  color: transparent;
+  font-size: 0;
+}
+
+.users-table thead tr th:first-child::before {
+  color: var(--branco);
+  content: 'Usuários';
+  font-size: 16px;
+}
+
+.users-table thead tr th:not(:first-child) {
+  display: none;
+}
+
+.users-table tbody tr td:last-child {
+  border-bottom: 1px solid var(--cinza);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
 }
 
 .users-table [class*="--btn"] {
@@ -187,6 +217,8 @@ main {
 
 .register-user .form__input-container input,
 .edit-user .form__input-container input {
+  display: block;
+  max-width: calc(100vw - 64px);
   padding: 4px 8px;
   width: -webkit-fill-available;
 }
@@ -212,4 +244,34 @@ main {
   background-color: var(--chumbo);
   color: var(--branco);
   cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+
+  .users-table td {
+    display: table-cell;
+  }
+
+  .users-table td:not(:nth-child(n+5))::before {
+    content: none;
+  }
+
+  .users-table thead tr th:first-child {
+    color: var(--branco);
+    font-size: initial;
+  }
+
+  .users-table thead tr th:first-child::before {
+    content: none;
+  }
+
+  .users-table thead tr th:not(:first-child) {
+    display: table-cell;
+  }
+
+  .users-table tbody tr td:last-child {
+    border-bottom: none;
+    margin-bottom: auto;
+    padding-bottom: auto;
+  }
 }
