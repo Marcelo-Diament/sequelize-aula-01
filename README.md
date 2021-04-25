@@ -974,70 +974,107 @@ Agora vamos incluir o formulário na _view_ `users` - mas só se estivermos na l
 
 Agora vamos adicionar mais um trecho ao nosso estilo:
 
-```css
+``` css
 .register-user {
-  display: block;
-  margin: 16px auto;
+    display: block;
+    margin: 16px auto;
 }
 
 .register-user__title {
-  font-size: 24px;
+    font-size: 24px;
 }
 
 .register-user__subtitle {
-  color: var(--chumbo);
-  font-size: 20px;
+    color: var(--chumbo);
+    font-size: 20px;
 }
 
 .register-user .form {
-  margin: 24px auto;
-  min-width: max-content;
-  width: 25vw;
+    margin: 24px auto;
+    min-width: max-content;
+    width: 25vw;
 }
 
 .register-user .form__input-container {
-  display: block;
-  margin: 16px auto;
+    display: block;
+    margin: 16px auto;
 }
 
 .register-user .form__input-container label {
-  color: var(--chumbo);
+    color: var(--chumbo);
 }
 
 .register-user .form__input-container input {
-  padding: 4px 8px;
-  width: -webkit-fill-available;
+    padding: 4px 8px;
+    width: -webkit-fill-available;
 }
 
 .form__btns {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: flex-end;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
 }
 
 .form__btns button {
-  background-color: var(--azul);
-  border: none;
-  color: var(--branco);
-  display: inline-block;
-  font-weight: bolder;
-  text-align: center;
-  margin: 8px 0;
-  padding: 8px 16px;
+    background-color: var(--azul);
+    border: none;
+    color: var(--branco);
+    display: inline-block;
+    font-weight: bolder;
+    text-align: center;
+    margin: 8px 0;
+    padding: 8px 16px;
 }
 
 .form__btns button:hover {
-  background-color:var(--chumbo);
-  color: var(--branco);
-  cursor: pointer;
+    background-color: var(--chumbo);
+    color: var(--branco);
+    cursor: pointer;
 }
 ```
 
-E, aproveitando, vamos aumentar a margem vertical da tabela de usuários para `24px`:
+E, aproveitando, vamos aumentar a margem vertical da tabela de usuários para `24px` :
 
-```css
+``` css
 .users-table {
-  font-weight: bold;
-  margin: 24px auto;
+    font-weight: bold;
+    margin: 24px auto;
 }
 ```
+
+### Controller de Cadastro
+
+Com o 'front' pronto, vamos preparar nosso _controller_! :)
+
+Sabemos que nosso formulário está pronto para enviar os dados via `POST` . Também sabemos que as informações chegarão no `body` da nossa _request_ (que pode ser acessado com `req.body` ).
+
+Então vamos usar a desestruturação para capturarmos cada um dos valores dos _inputs_, montarmos nossa _query_, ajustarmos o `type` da _query_ Sequelize para `INSERT` e usarmos o `replacement` com objeto para passaros os valores vindos do formulário para a _query_.
+
+Nosso método vai se chamar `add` :
+
+``` js
+add: async (req, res, next) => {
+    const {
+        nome,
+        sobrenome,
+        email
+    } = req.body
+    const user = await db.query(`INSERT INTO usuarios (nome, sobrenome, email) VALUES (:nome, :sobrenome, :email)`, {
+        replacements: {
+            nome,
+            sobrenome,
+            email
+        },
+        type: Sequelize.QueryTypes.INSERT
+    })
+    if (user) {
+        res.redirect('/users')
+    } else {
+        res.status(500).send('Ops... Algo de errado não deu certo!')
+    }
+}
+```
+
+No final da _query_, verificamos se a variável `user` foi salva (se foi, é por que o usuário foi inserido - então usamos o método `redirect()` passando o caminho `users` como argumento). Caso não seja salva, retornamos um erro com status `500` (erro de servidor).
+
+Poderíamos ter mais validações, como checar cada parâmetro do usuário e criar erros de acordo com cada um deles. Mas como já deixamos todos os campos como obrigatórios e estamos usando o atributo `type` para garantir que o email seja um email de fato, não vamos nos aprofundar na validação (que também pode ser feita via JS diretamente no front end).
