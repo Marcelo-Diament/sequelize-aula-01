@@ -1694,7 +1694,7 @@ Vamos incluir links para a página inicial, página de usuários e para o reposi
 </nav>
 ```
 
-Como o menu é extremamente enxuto, não precisaremos nos preocupar com o comportamento dele em dispositivos móveis. Mas fica de desafio - criar um menu mobile (sugestão: manter a estrutura e utilizar _media queries_ utilizando o conceito _mobile first_ - onde a _media query_ lida com dispositivos maiores e o _default_ considera o _mobile_).
+Como o menu é extremamente enxuto, não iremos nos preocupar com o comportamento dele em dispositivos móveis nessa tarefa. Mas fica de desafio - criar um menu mobile (sugestão: manter a estrutura e utilizar _media queries_ utilizando o conceito _mobile first_ - onde a _media query_ lida com dispositivos maiores e o _default_ considera o _mobile_).
 
 Nosso estilo ficará assim:
 
@@ -1720,6 +1720,20 @@ Nosso estilo ficará assim:
 ```
 
 Tá aí! Mais uma melhoria implantada.
+
+## Tabela de Usuários no Mobile
+
+Agora um desafio bacana de CSS - como definir um comportamento da tabela no mobile de forma que o usuário possa ver todos os dados de maneira confortável? Vamos por partes.
+
+**Meta dado _viewport_**
+
+Primeiro, vamos incluir um meta dado no `header` para conseguirmos controlar o estilo por _media query_:
+
+```ejs
+<meta name="viewport" content="width=device-width,initial-scale=1">
+```
+
+Essa _meta tag_ carregará o conteúdo com um zoom de 100% e considerará a largura do dispositivo como a largura do site.
 
 ___
 
