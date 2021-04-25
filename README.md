@@ -1,6 +1,34 @@
 # Sequelize \#01 | Raw Queries
 
-Prática referente à aula de introdução ao Sequelize.
+Prática referente à aula de introdução ao Sequelize. Nessa prática iremos realizar as 4 etapas de um CRUD - criar um registro no Banco de Dados (C - _Create_), consultar um ou todos os registros (R - _Read_), atuaizar um registro (U - _Update_) e excluir um registro (D - _Delete_). Usaremos o Node.js como base, o Express como 'mini _framework_' para configurarmos nosso servidor (com ajuda do Express Generator), EJS como _template engine_ para nossas telas, Banco de Dados MySQL e o Sequelize, foco da prática, para nos conectarmos ao BD e manipularmos os registros com _Raw Queries_ (_queries_ 'puras').
+
+## Como Usar o Repositório?
+
+A ideia da prática é que consiga reproduzir esse projeto na sua própria máquina, do zero - seguindo as instruções desse repositório. Mas, caso queira baixar o repositório e 'rodar' em ambiente local, basta executar os seguintes passos:
+
+1. Ativar o MySQL através do XAMPP
+
+2. Ativar sua conexão (no caso com os dados `host: localhost`, `user: root`, `password: (vazia)`)
+
+3. Criar um Banco de Dados MySQL chamado `aula_sequelize_01`
+
+4. Criar uma tabela chamada `usuarios` com os campos `id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY`, `nome VARCHAR(100) NOT NULL`, `sobrenome VARCHAR(100) NOT NULL` e `email VARCHAR(100) NOT NULL`.
+
+5. Popular essa tabela com alguns registros (opcional, mas vale a pena para poder visualizar os usuários logo no início)
+
+6. Garantir que possui o Express e o Nodemon instalados globalmente
+
+7. Instalar as dependências do projeto e iniciar o servidor (via terminal)
+
+```sh
+cd backend && npm install && npm run start
+```
+
+8. Abrir `localhost:3000` no seu navegador
+
+As seguir há o detalhamento de cada etapa percorrida ao longo do projeto - inclusive as etapas mencionadas acima.
+
+Faça bom proveito e esperamos que ajude em sua jornada de aprendizado! =)
 
 ## Introdução
 
@@ -1606,3 +1634,11 @@ Com isso finalizamos as principais etapas da nossa prática!
 Há muita coisa que ainda pode ser melhorada nesse repositório - como inclusão de um botão 'Voltar', inclusão de links em um menu...
 
 E aí? Topa essa desafio?
+
+___
+
+# Obrigado pela visita!
+
+Vamos nos conectar? Se quiser trocar idéias, experiências e figurinhas, entre em contato comigo!
+
+Marcelo Diament | Prorietário na [Djament Comunicação](http://djament.com.br/), Development Chapter Leader na [Driven.cx](https://www.driven.cx/) e Instrutor de Programação Full Stack na [Digital House](http://digitalhouse.com.br/) | [Github](https://github.com/Marcelo-Diament) | [LinkedIn](https://www.linkedin.com/in/marcelodiament/)
