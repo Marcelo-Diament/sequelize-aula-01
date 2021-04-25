@@ -1735,6 +1735,19 @@ Primeiro, vamos incluir um meta dado no `header` para conseguirmos controlar o e
 
 Essa _meta tag_ carregará o conteúdo com um zoom de 100% e considerará a largura do dispositivo como a largura do site.
 
+**View**
+
+Agora vamos preparar nossas _tags_ HTML para podermos trabalhar, em seguida, com o estilo (CSS).
+
+```ejs
+<td class="user__id" data-title="ID"><%=user.id%></td>
+<td class="user__name" data-title="Nome"><%= user.nome %></td>
+<td class="user__lastname" data-title="Sobrenome"><%= user.sobrenome %></td>
+<td class="user__email" data-title="Email"><%= user.email %></td>
+```
+
+Incluímos um atributo chamado `data-title` nas _tags_ `td` do id, nome, sobrenome e email. Fizemos isso para, no estilo, incluirmos o título de cada coluna (replicado nesse atributo) antes de cada valor, para que fique claro qual a 'chave' do valor mostrado para o usuário.
+
 ___
 
 # Obrigado pela visita!
