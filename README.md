@@ -1748,6 +1748,113 @@ Agora vamos preparar nossas _tags_ HTML para podermos trabalhar, em seguida, com
 
 Incluímos um atributo chamado `data-title` nas _tags_ `td` do id, nome, sobrenome e email. Fizemos isso para, no estilo, incluirmos o título de cada coluna (replicado nesse atributo) antes de cada valor, para que fique claro qual a 'chave' do valor mostrado para o usuário.
 
+**Estilo**
+
+Agora chegou a parte do desafio! Seria muito mais fácil incluirmos um _media query_ para resolução _mobile_. Mas como queremos fazer as coisas do jeito certo, utilizaremos o conceito de _mobile first_, onde consideraremos a resolução _mobile_ como padrão e utilizaremos as _media queries_ para tratarmos resoluções maiores (`min-width: 768px`).
+
+Então primeiro vamos manipular a tabela de forma a:
+
+1. Esconder os cabeçalhos, com exceção do primeiro (do ID).
+
+2. Trocar o título do ID por 'Usuários' usando o pseudoelemento `::before`.
+
+3. Trocar o valor da propriedade `display` de forma que cada `td` fique uma abaixo da outra.
+
+4. Incluir o valor do atributo `data-title` como pseudoelemento `::before` antes de cada valor da `td` (para que fique como "ID: 1 | Nome: Fulano...").
+
+5. Inserir um `border-bottom` na última `td` (célula, _table data_) de cada `tr` (_table row_) para dividirmos visualmente os dados de cada usuário.
+
+6. Através da _media query_, garantirmos que a tabela se comportará como antes quando a resolução/largura for superior a 767px.
+
+7. Vamos aproveitar para impor uma largura máxima para o formulário de adição de usuário.
+
+Tendo tudo isso em mente, os trechos alterados (referentes à tabela de usuários) são os seguintes:
+
+```css
+.users-table th,
+.users-table td {
+  padding: 6px 12px;
+}
+
+.users-table td {
+  display: block;
+}
+
+.users-table td:not(:nth-child(n+5))::before {
+  content: attr(data-title) ": ";
+  font-weight: bolder;
+}
+
+.users-table thead tr th:first-child {
+  color: transparent;
+  font-size: 0;
+}
+
+.users-table thead tr th:first-child::before {
+  color: var(--branco);
+  content: 'Usuários';
+  font-size: 16px;
+}
+
+.users-table thead tr th:not(:first-child) {
+  display: none;
+}
+
+.users-table tbody tr td:last-child {
+  border-bottom: 1px solid var(--cinza);
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+}
+```
+
+O trecho da _media query_ ficará assim (lembre-se de deixar esse trecho no final do arquivo):
+
+```css
+@media screen and (min-width: 768px) {
+
+  .users-table td {
+    display: table-cell;
+  }
+
+  .users-table td:not(:nth-child(n+5))::before {
+    content: none;
+  }
+
+  .users-table thead tr th:first-child {
+    color: var(--branco);
+    font-size: initial;
+  }
+
+  .users-table thead tr th:first-child::before {
+    content: none;
+  }
+
+  .users-table thead tr th:not(:first-child) {
+    display: table-cell;
+  }
+
+  .users-table tbody tr td:last-child {
+    border-bottom: none;
+    margin-bottom: auto;
+    padding-bottom: auto;
+  }
+}
+```
+
+E os ajustes dos inputs dos formulários (`display` e `max-width`):
+
+```css
+.register-user .form__input-container input,
+.edit-user .form__input-container input {
+  display: block;
+  max-width: calc(100vw - 64px);
+  padding: 4px 8px;
+  width: -webkit-fill-available;
+}
+```
+
+Agora podemos testar no navegador diferentes resoluções e ver como a tabela se comporta. =)
+
 ___
 
 # Obrigado pela visita!
