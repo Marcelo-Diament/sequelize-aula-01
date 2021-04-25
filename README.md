@@ -1177,3 +1177,21 @@ Vamos adicionar a variável `vermelho` dentro do seletor `:root` ( `--vermelho: 
 ```
 
 Prontinho! Podemos partir para a edição de usuário!
+
+## Edição de Usuário no Banco
+
+**Branch:** [feature/edit-user](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/edit-user)
+
+Chegamos na última letra do CRUD - U, de _Update_!
+
+Vamos racioncinar juntos para entender o que deve ser feito:
+
+1. Já temos uma rota que lista um usuário único por ID. Beleza.
+
+2. Também sabemos como adicionar as informações de um usuário, o método `add` do nosso _controller_.
+
+3. Já conhecemos a _query_ SQL para alterarmos um usuário - `UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome, email = :email WHERE usuarios.id = :id`. Isso, claro, se formos alterar todos os dados. Mas... concorda que é mais fácil capturar os dados originais e enviar todos novamente do que validar qual(is) campo(s) foi(ram) alterado(s), montar a _query_ com base nesse(s) campos, etc.?
+
+Bom, o que precisamos fazer, então, é basicamente selecionar um usuário e editar suas informações, enviando todos os campos (partindo dos campos originais e permitindo o usuário a alterar os campos que desejar). Faz sentido?
+
+Claro que há outras maneiras de executarmos essa tarefa, mas seguiremos o plano descrito acima. ;)
