@@ -1131,7 +1131,7 @@ Nós até poderíamos direcionar da rota com `POST` para a rota com `DELETE` , m
 
 ### Controller de Exclusão de Usuário
 
-Agora precisamos fazer a exclusão ocorrer de fato. Mas é praticamente o que já fizemos (trocando o método/ `type` para `DELETE` - e, na validação, verificamos se não há `user`):
+Agora precisamos fazer a exclusão ocorrer de fato. Mas é praticamente o que já fizemos (trocando o método/ `type` para `DELETE` - e, na validação, verificamos se não há `user` ):
 
 ``` js
 delete: async (req, res, next) => {
@@ -1148,3 +1148,30 @@ delete: async (req, res, next) => {
     }
 }
 ```
+
+### Estilo Botão Excluir
+
+Com tudo já funcionando certinho, vamos apenas melhorar o estilo desse botão.
+
+Vamos adicionar a variável `vermelho` dentro do seletor `:root` ( `--vermelho: #ff0055; ` ) e incluir o seguinte estilo (no final dos seletores que se referem à tabela de usuários):
+
+``` css
+.users-table .user__delete--btn {
+    background-color: var(--vermelho);
+    border: none;
+    color: var(--branco);
+    display: inline-block;
+    font-weight: bolder;
+    text-align: center;
+    margin: auto;
+    padding: 6px 12px;
+}
+
+.users-table .user__delete--btn:hover {
+    background-color: var(--chumbo);
+    color: var(--vermelho);
+    cursor: pointer;
+}
+```
+
+Prontinho! Podemos partir para a edição de usuário!
