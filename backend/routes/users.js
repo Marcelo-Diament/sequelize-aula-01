@@ -4,6 +4,7 @@ const express = require('express'),
 
 router.post('/:id/delete', controller.delete)
 router.get('/:id', controller.index)
+router.post('/:id', controller.update)
 router.get('/', controller.list)
 router.post('/', controller.add)
 
