@@ -1229,7 +1229,7 @@ Vamos atualizar a _view_ `./backend/views/partials/users` , incluindo um formul�
 <% } %>
 ```
 
-Para otimizarmos nosso código, ao invés de declararmos sempre o índice 0 - pois só há um usuário nesse contexto -, salvamos esse índice (usuário) numa variável chamada `user`.
+Para otimizarmos nosso código, ao invés de declararmos sempre o índice 0 - pois só há um usuário nesse contexto -, salvamos esse índice (usuário) numa variável chamada `user` .
 
 E, claro, também vamos adicionar um botão 'Editar' também:
 
@@ -1247,4 +1247,37 @@ E, claro, também vamos adicionar um botão 'Editar' também:
     <button class="user__edit--btn">Editar</button>
   </form>
 </td>
+```
+
+### Controller
+
+Bom, tudo o que precisamos fazer é criar a nossa _query_ de alteração, seguindo o mesmo esquema das demais.
+
+Capturamos os dados do formulário via `req.body` (desestruturando as propriedades) e o `id` por `req,params.id`, trocamos o método/`type` e incluímos nossa _query_:
+
+``` js
+update: async (req, res, next) => {
+    const {
+        nome,
+        sobrenome,
+        email
+    } = req.body
+    let {
+        id
+    } = req.params
+    const user = await db.query(`UPDATE usuarios SET nome = :nome, sobrenome = :sobrenome, email = :email WHERE usuarios.id = :id`, {
+        replacements: {
+            id,
+            nome,
+            sobrenome,
+            email
+        },
+        type: Sequelize.QueryTypes.UPDATE
+    })
+    if (user) {
+        res.redirect(`/users`)
+    } else {
+        res.status(500).send('Ops... Algo de errado não deu certo!')
+    }
+}
 ```
