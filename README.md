@@ -922,7 +922,7 @@ Nessa prática faremos o seguinte:
 
 Por padrão, o método `PATCH` permitiria adicionarmos ou editarmos um usuário. Mas vamos usar o `POST` para termos cada etapa do CRUD separada.
 
-### Formulário de Cadastro
+### Formulário de Cadastro de Usuário
 
 **Partial View**
 
@@ -1042,7 +1042,7 @@ E, aproveitando, vamos aumentar a margem vertical da tabela de usuários para `2
 }
 ```
 
-### Controller de Cadastro
+### Controller de Cadastro de Usuário
 
 Com o 'front' pronto, vamos preparar nosso _controller_! :)
 
@@ -1078,3 +1078,13 @@ add: async (req, res, next) => {
 No final da _query_, verificamos se a variável `user` foi salva (se foi, é por que o usuário foi inserido - então usamos o método `redirect()` passando o caminho `users` como argumento). Caso não seja salva, retornamos um erro com status `500` (erro de servidor).
 
 Poderíamos ter mais validações, como checar cada parâmetro do usuário e criar erros de acordo com cada um deles. Mas como já deixamos todos os campos como obrigatórios e estamos usando o atributo `type` para garantir que o email seja um email de fato, não vamos nos aprofundar na validação (que também pode ser feita via JS diretamente no front end).
+
+### Rota de Cadastro de Usuário
+
+Agora só precisamos criar uma rota com o caminho `users` , com o método `post` e usando o método `add` do _controller_ `users` , super fácil:
+
+``` js
+router.post('/', controller.add)
+```
+
+Simples assim! Agora é só preencher o formulário e ver seu usuário sendo adicionado (lembre-se de que o MySQL deve ter sido ativado pelo XAMPP).
