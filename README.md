@@ -1121,10 +1121,30 @@ Poderíamos usar o atributo `onclick` e chamar uma função de algum _script_, m
 
 ### Rota de Exclusão de Usuário
 
-Bom, já sabemos que não poderemos usar o método `delete()`. Então criaremos a seguinte rota (já considerando um método `delete` no nosso _controller_ de usuários):
+Bom, já sabemos que não poderemos usar o método `delete()` . Então criaremos a seguinte rota (já considerando um método `delete` no nosso _controller_ de usuários):
 
-```js
+``` js
 router.post('/:id/delete', controller.delete)
 ```
 
-Nós até poderíamos direcionar da rota com `POST` para a rota com `DELETE`, mas não faria muito sentido nessa prática.
+Nós até poderíamos direcionar da rota com `POST` para a rota com `DELETE` , mas não faria muito sentido nessa prática.
+
+### Controller de Exclusão de Usuário
+
+Agora precisamos fazer a exclusão ocorrer de fato. Mas é praticamente o que já fizemos (trocando o método/ `type` para `DELETE` - e, na validação, verificamos se não há `user`):
+
+``` js
+delete: async (req, res, next) => {
+    const user = await db.query(`DELETE from usuarios WHERE usuarios.id = :id`, {
+        replacements: {
+            id: req.params.id
+        },
+        type: Sequelize.QueryTypes.DELETE
+    })
+    if (!user) {
+        res.redirect('/users')
+    } else {
+        res.status(500).send('Ops... Algo de errado não deu certo!')
+    }
+}
+```
