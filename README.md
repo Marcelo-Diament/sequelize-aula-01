@@ -1694,6 +1694,33 @@ Vamos incluir links para a página inicial, página de usuários e para o reposi
 </nav>
 ```
 
+Como o menu é extremamente enxuto, não precisaremos nos preocupar com o comportamento dele em dispositivos móveis. Mas fica de desafio - criar um menu mobile (sugestão: manter a estrutura e utilizar _media queries_ utilizando o conceito _mobile first_ - onde a _media query_ lida com dispositivos maiores e o _default_ considera o _mobile_).
+
+Nosso estilo ficará assim:
+
+``` css
+.header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header__title {
+    font-size: 16px;
+}
+
+.header__nav a {
+    color: var(--branco);
+    font-weight: bolder;
+}
+
+.header__nav a:not(:last-child)::after {
+    content: ' | ';
+}
+```
+
+Tá aí! Mais uma melhoria implantada.
+
 ___
 
 # Obrigado pela visita!
