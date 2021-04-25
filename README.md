@@ -969,3 +969,75 @@ Agora vamos incluir o formulário na _view_ `users` - mas só se estivermos na l
   <%- include('partials/userRegister') %>
 <% } %>
 ```
+
+**Estilo do Formulário**
+
+Agora vamos adicionar mais um trecho ao nosso estilo:
+
+```css
+.register-user {
+  display: block;
+  margin: 16px auto;
+}
+
+.register-user__title {
+  font-size: 24px;
+}
+
+.register-user__subtitle {
+  color: var(--chumbo);
+  font-size: 20px;
+}
+
+.register-user .form {
+  margin: 24px auto;
+  min-width: max-content;
+  width: 25vw;
+}
+
+.register-user .form__input-container {
+  display: block;
+  margin: 16px auto;
+}
+
+.register-user .form__input-container label {
+  color: var(--chumbo);
+}
+
+.register-user .form__input-container input {
+  padding: 4px 8px;
+  width: -webkit-fill-available;
+}
+
+.form__btns {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+
+.form__btns button {
+  background-color: var(--azul);
+  border: none;
+  color: var(--branco);
+  display: inline-block;
+  font-weight: bolder;
+  text-align: center;
+  margin: 8px 0;
+  padding: 8px 16px;
+}
+
+.form__btns button:hover {
+  background-color:var(--chumbo);
+  color: var(--branco);
+  cursor: pointer;
+}
+```
+
+E, aproveitando, vamos aumentar a margem vertical da tabela de usuários para `24px`:
+
+```css
+.users-table {
+  font-weight: bold;
+  margin: 24px auto;
+}
+```
