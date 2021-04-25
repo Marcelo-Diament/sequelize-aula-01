@@ -8,16 +8,25 @@ const controller = {
     res.render('users', {
       title: 'Página de Usuários',
       subtitle: 'Confira a seguir os usuários cadastrados em nosso banco de dados',
-      users
+      users,
+      edit: false
     })
   },
   index: async (req, res, next) => {
     const user = await db.query(`SELECT * from usuarios WHERE usuarios.id = ${req.params.id}`, { type: Sequelize.QueryTypes.SELECT })
-    res.render('users', {
-      title: 'Página de Usuário',
-      subtitle: 'Confira a seguir o usuário encontrado em nosso banco de dados',
-      users: user
-    })
+      req.query.edit === 'edit'
+      ? res.render('users', {
+        title: 'Página de Edição o Usuário',
+        subtitle: 'Preencha o formulário para editar seu usuário',
+        users: user,
+        edit: true
+      })
+      : res.render('users', {
+        title: 'Página do Usuário',
+        subtitle: 'Confira a seguir o usuário encontrado em nosso banco de dados',
+        users: user,
+        edit: false
+      })
   },
   add: async (req, res, next) => {
     const {
