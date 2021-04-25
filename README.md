@@ -1470,4 +1470,85 @@ const controller = {
 }
 ```
 
-_No trecho acima ignoramos o restante do código do arquivo `./backend/controllers/users.js`._
+_No trecho acima ignoramos o restante do código do arquivo `./backend/controllers/users.js` ._
+
+**Condicionais na _view_**
+
+Para finalizar essa melhoria, vamos incluir algumas condicionais para definirmos se o formulário de edição deve aparecer ou não - bem como quando os botões 'Ver' e 'Editar' devem aparecer. E, claro - precisamos incluir o _query param_ `edit=edit` no botão de editar, para que tudo isso funcione corretamente!
+
+Detalhe importante: sempre que enviamos informações via método `GET` , os atributos `name` e `value` formam os pares de chave/valor do _query param_ - por isso acrescentamos um `input` do tipo `hidden` no formulário de edição (de forma a aumentarmos a quantidade de conhecimento aplicada nessa prática única). ; )
+
+Enfim, nosso _template_ parcial `users` ficou assim:
+
+``` ejs
+<section class="users">
+  <table class="users-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>Sobrenome</th>
+        <th>Email</th>
+        <% if (edit === true && users.length === 1) { %>
+        <th>Ver</th>
+        <% } else if (edit === false) { %>
+        <th>Editar</th>
+        <% } %>
+        <th>Excluir</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let user of users) { %>
+      <tr id="user<%= user.id %>" class="user">
+        <td class="user__id"><%=user.id%></td>
+        <td class="user__name"><%= user.nome %></td>
+        <td class="user__lastname"><%= user.sobrenome %></td>
+        <td class="user__email"><%= user.email %></td>
+        <% if (edit === true && users.length === 1) { %>
+        <td class="user__see">
+          <form action="/users/<%= user.id %>" method="GET">
+            <button class="user__see--btn">Ver</button>
+          </form>
+        </td>
+        <% } else if (edit === false) { %>
+        <td class="user__edit">
+          <form action="/users/<%= user.id %>" method="GET">
+            <input type="hidden" name="edit" value="edit">
+            <button class="user__edit--btn">Editar</button>
+          </form>
+        </td>
+        <% } %>
+        <td class="user__delete">
+          <form action="/users/<%= user.id %>/delete" method="POST">
+            <button class="user__delete--btn">Excluir</button>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</section>
+<% if(users && users.length === 1 && edit && edit === true) {
+  user = users[0]
+%>
+<section id="editUserSection" class="edit-user">
+  <form action="" method="POST" class="form">
+    <div class="form__input-container">
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" id="nome" required value="<%= user.nome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="sobrenome">Sobrenome</label>
+      <input type="text" name="sobrenome" id="sobrenome" required value="<%= user.sobrenome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required value="<%= user.email %>">
+    </div>
+    <div class="form__btns">
+      <button>Editar Usuário</button>
+    </div>
+  </form>
+</section>
+<% } %>
+```
