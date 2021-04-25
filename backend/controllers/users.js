@@ -18,6 +18,26 @@ const controller = {
       subtitle: 'Confira a seguir o usuário encontrado em nosso banco de dados',
       users: user
     })
+  },
+  add: async (req, res, next) => {
+    const {
+      nome,
+      sobrenome,
+      email
+    } = req.body
+    const user = await db.query(`INSERT INTO usuarios (nome, sobrenome, email) VALUES (:nome, :sobrenome, :email)`, {
+      replacements: {
+        nome,
+        sobrenome,
+        email
+      },
+      type: Sequelize.QueryTypes.INSERT
+    })
+    if (user) {
+      res.redirect('/users')
+    } else {
+      res.status(500).send('Ops... Algo de errado não deu certo!')
+    }
   }
 }
 
