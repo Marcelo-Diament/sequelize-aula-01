@@ -14,7 +14,7 @@ A ideia da prática é que consiga reproduzir esse projeto na sua própria máqu
 
 3. Criar um Banco de Dados MySQL chamado `aula_sequelize_01`
 
-4. Criar uma tabela chamada `usuarios` com os campos `id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY`, `nome VARCHAR(100) NOT NULL`, `sobrenome VARCHAR(100) NOT NULL` e `email VARCHAR(100) NOT NULL`.
+4. Criar uma tabela chamada `usuarios` com os campos `id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY`, `nome VARCHAR(100) NOT NULL`,  `sobrenome VARCHAR(100) NOT NULL` e `email VARCHAR(100) NOT NULL`.
 
 5. Popular essa tabela com alguns registros (opcional, mas vale a pena para poder visualizar os usuários logo no início)
 
@@ -22,7 +22,7 @@ A ideia da prática é que consiga reproduzir esse projeto na sua própria máqu
 
 7. Instalar as dependências do projeto e iniciar o servidor (via terminal)
 
-```sh
+``` sh
 cd backend && npm install && npm run start
 ```
 
@@ -1601,7 +1601,7 @@ Simplesmente iremos mover o formulário de edição de usuário para um _templat
 <% } %>
 ```
 
-Como já estamos dentro da pasta `partials`, não devemos declará-la novamente.
+Como já estamos dentro da pasta `partials` , não devemos declará-la novamente.
 
 **`./backend/views/partials/userRegister.ejs`**
 
@@ -1636,6 +1636,43 @@ Com isso finalizamos as principais etapas da nossa prática!
 Há muita coisa que ainda pode ser melhorada nesse repositório - como inclusão de um botão 'Voltar', inclusão de links em um menu...
 
 E aí? Topa essa desafio?
+
+___
+
+## Botão CTA Usuários
+
+Vamos criar um botão (link) CTA (Call To Action) para levarmos o visitante da página inicial para a listagem de usuários.
+
+Na _view_ `index.ejs` , vamos acrescentar o botão:
+
+``` ejs
+<div class="cta">
+  <a href="/users" rel="next" target="_self" title="Ver listagem de usuários" class="cta__btn">Ver Lista de Usuários</a>
+</div>
+```
+
+E vamos adicionar um estilo para esse CTA:
+
+``` css
+.cta__btn {
+    background-color: var(--azul);
+    border: none;
+    color: var(--branco);
+    display: inline-block;
+    font-weight: bolder;
+    text-align: center;
+    margin: auto;
+    padding: 6px 12px;
+}
+
+.cta__btn:hover {
+    background-color: var(--chumbo);
+    color: var(--azul);
+    cursor: pointer;
+}
+```
+
+Tá pronto!
 
 ___
 
