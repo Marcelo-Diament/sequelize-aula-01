@@ -1091,6 +1091,8 @@ Simples assim! Agora é só preencher o formulário e ver seu usuário sendo adi
 
 ## Remoção de Usuário do Banco
 
+**Branch:** [feature/remove-user](https://github.com/Marcelo-Diament/sequelize-aula-01/tree/feature/remove-user)
+
 Vimos como adicionar um usuário, consultar um ou todos os usuários e agora veremos como apagar um usuário a partir de seu ID (D do CRUD, de _Delete_).
 
 ### View
