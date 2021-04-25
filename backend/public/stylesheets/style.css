@@ -4,6 +4,7 @@
   --chumbo: #3e3e3e;
   --cinza: #eee;
   --preto: #000;
+  --vermelho: #ff0055;
 }
 
 body {
@@ -73,6 +74,23 @@ main {
   padding: 6px 12px;
 }
 
+.users-table .user__delete--btn {
+  background-color: var(--vermelho);
+  border: none;
+  color: var(--branco);
+  display: inline-block;
+  font-weight: bolder;
+  text-align: center;
+  margin: auto;
+  padding: 6px 12px;
+}
+
+.users-table .user__delete--btn:hover {
+  background-color: var(--chumbo);
+  color: var(--vermelho);
+  cursor: pointer;
+}
+
 .register-user {
   display: block;
   margin: 16px auto;
@@ -125,7 +143,7 @@ main {
 }
 
 .form__btns button:hover {
-  background-color:var(--chumbo);
+  background-color: var(--chumbo);
   color: var(--branco);
   cursor: pointer;
 }
