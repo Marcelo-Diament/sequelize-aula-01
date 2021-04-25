@@ -1194,4 +1194,57 @@ Vamos racioncinar juntos para entender o que deve ser feito:
 
 Bom, o que precisamos fazer, então, é basicamente selecionar um usuário e editar suas informações, enviando todos os campos (partindo dos campos originais e permitindo o usuário a alterar os campos que desejar). Faz sentido?
 
-Claro que há outras maneiras de executarmos essa tarefa, mas seguiremos o plano descrito acima. ;)
+Claro que há outras maneiras de executarmos essa tarefa, mas seguiremos o plano descrito acima. ; )
+
+### View
+
+Vamos atualizar a _view_ `./backend/views/partials/users` , incluindo um formulário de edição que só deve aparecer caso estejamos no 'detalhe' do usuário ( `users.length === 1` ):
+
+``` ejs
+<%
+  if(users && users.length === 1) {
+  user = users[0]
+%>
+<section id="editUserSection" class="edit-user">
+  <h2 class="edit-user__title">Edição de Usuário</h2>
+  <h3 class="edit-user__subtitle">Preencha o formulário a seguir e clique em 'Editar Usuário'</h3>
+  <form action="" method="POST" class="form">
+    <div class="form__input-container">
+      <label for="nome">Nome</label>
+      <input type="text" name="nome" id="nome" required value="<%= user.nome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="sobrenome">Sobrenome</label>
+      <input type="text" name="sobrenome" id="sobrenome" required value="<%= user.sobrenome %>">
+    </div>
+    <div class="form__input-container">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required value="<%= user.email %>">
+    </div>
+    <div class="form__btns">
+      <button>Editar Usuário</button>
+    </div>
+  </form>
+</section>
+<% } %>
+```
+
+Para otimizarmos nosso código, ao invés de declararmos sempre o índice 0 - pois só há um usuário nesse contexto -, salvamos esse índice (usuário) numa variável chamada `user`.
+
+E, claro, também vamos adicionar um botão 'Editar' também:
+
+**Coluna de `thead` > `tr` **
+
+``` ejs
+<th>Editar</th>
+```
+
+**Célula em `tbody` > `tr` (antes de 'Excluir')**
+
+``` ejs
+<td class="user__edit">
+  <form action="/users/<%= user.id %>" method="GET">
+    <button class="user__edit--btn">Editar</button>
+  </form>
+</td>
+```
