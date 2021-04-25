@@ -1294,7 +1294,7 @@ router.post('/:id', controller.update)
 
  É a mesma rota da visualização de um usuário único, mas com o método `POST` (e com o método do _controller_ `update` ).
 
- ### Estilo do Botão  e Formulário de Edição
+### Estilo do Botão  e Formulário de Edição
 
  Por fim, vamos estilizar nosso botão 'Editar'. Porém, como o estilo é muito parecido com o de 'Excluir', vamos reaproveitar as propriedades em comum. Nosso estilo (referente a esses botões) ficará assim:
 
