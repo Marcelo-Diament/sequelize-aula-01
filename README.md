@@ -1281,3 +1281,5 @@ update: async (req, res, next) => {
     }
 }
 ```
+
+Observação: poderíamos direcionar o usuário para a visualização do próprio perfil, adicionando o `id` ao caminho (`path`) do `redirect()`. Mas, como estamos tratando da mesma tela (exatamente), isso prejudicaria a experiência do nosso usuário (ele pode achar que não houve atualização).
