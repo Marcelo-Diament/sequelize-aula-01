@@ -1118,3 +1118,13 @@ Vamos acrescentar um botão 'Excluir' na linha de cada usuário (na tabela de us
 Poderíamos usar o atributo `onclick` e chamar uma função de algum _script_, mas - para melhor compreensão - teremos esse formulário dentro do _table data_ (_tag_ `td` ).
 
 > Importante: formulários HTML5 só aceitam os métodos `GET` e `POST` , então não conseguimos enviar através do método `DELETE` diretamente. Poderíamos enviar o método `DELETE` através de um `fetch` , por exemplo. Mas será mais simples enviarmos para uma rota com um caminho distinto, como veremos a seguir (logo, o método utilizado será o `POST` ).
+
+### Rota de Exclusão de Usuário
+
+Bom, já sabemos que não poderemos usar o método `delete()`. Então criaremos a seguinte rota (já considerando um método `delete` no nosso _controller_ de usuários):
+
+```js
+router.post('/:id/delete', controller.delete)
+```
+
+Nós até poderíamos direcionar da rota com `POST` para a rota com `DELETE`, mas não faria muito sentido nessa prática.
