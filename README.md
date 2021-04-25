@@ -1571,6 +1571,8 @@ Simplesmente iremos mover o formulário de edição de usuário para um _templat
 <% } %>
 ```
 
+Como já estamos dentro da pasta `partials`, não devemos declará-la novamente.
+
 **`./backend/views/partials/userRegister.ejs`**
 
 ``` ejs
