@@ -14,9 +14,13 @@ A ideia da prática é que consiga reproduzir esse projeto na sua própria máqu
 
 3. Criar um Banco de Dados MySQL chamado `aula_sequelize_01`
 
-4. Criar uma tabela chamada `usuarios` com os campos `id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY`, `nome VARCHAR(100) NOT NULL`,  `sobrenome VARCHAR(100) NOT NULL` e `email VARCHAR(100) NOT NULL`.
+4. Criar uma tabela chamada `funcoes` com os campos `id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY` e `funcao VARCHAR(100) NOT NULL`.
 
-5. Popular essa tabela com alguns registros (opcional, mas vale a pena para poder visualizar os usuários logo no início)
+5. Popular a tabela com os valores `Administrador` e `Usuário Final` (nessa ordem).
+
+6. Criar uma tabela chamada `usuarios` com os campos `id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY`, `nome VARCHAR(100) NOT NULL`, `sobrenome VARCHAR(100) NOT NULL`,  `email VARCHAR(100) NOT NULL` e `id_funcao INT UNSIGNED` e criar a _contraint_ (_FK x PK_) (`CONSTRAINT fk_funcao_id FOREIGN KEY (id_funcao) REFERENCES funcoes(id)`).
+
+7. Popular essa tabela com alguns registros (opcional, mas vale a pena para poder visualizar os usuários logo no início)
 
 6. Garantir que possui o Express e o Nodemon instalados globalmente
 
@@ -112,7 +116,24 @@ Também precisamos 'usar' o banco:
 USE aula_sequelize_01;
 ```
 
-#### Criando a tabela users
+#### Criando a tabela funcoes
+
+Vamos criar uma tabela dentro desse banco, vai se chamar `funcoes` :
+
+``` mysql
+CREATE TABLE funcoes (
+	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    funcao VARCHAR(100) NOT NULL
+);
+```
+
+#### Populando a tabela
+
+``` mysql
+INSERT INTO funcoes (funcao) VALUES ('Administrador'), ('Usuário Final');
+```
+
+#### Criando a tabela usuarios
 
 Agora vamos criar uma tabela dentro desse banco, vai se chamar `usuarios` :
 
@@ -121,7 +142,9 @@ CREATE TABLE usuarios (
 	id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     sobrenome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL
+    email VARCHAR(100) NOT NULL,
+    id_funcao INT UNSIGNED,
+	  CONSTRAINT fk_funcao_id FOREIGN KEY (id_funcao) REFERENCES funcoes(id)
 );
 ```
 
@@ -132,20 +155,63 @@ Será uma tabela extremamente simples, apenas com os campos ID, Nome, Sobrenome 
 Por fim, incluiremos alguns usuários na tabela:
 
 ``` mysql
-INSERT INTO usuarios (nome, sobrenome, email)
-VALUES ('Fulano', 'Dias', 'fulano@dias.com'),
-('Ciclano', 'Junior', 'ciclano@junior.com'),
-('Beltrano', 'Santos', 'beltrano@santos.com'),
-('Joselito', 'Sem Noção', 'joselito@semnocao.com'),
-('Irmão', 'do Jorel', 'irmao@dojorel.com'),
-('Microwave', 'Warriors', 'microwave@warriors.com'),
-('Julius', 'Pai do Chris', 'julius@free.com'),
-('Marcelo', 'Diament', 'marcelo@diament.com'),
-('Bill', 'Portões', 'bill_portoes@janelas.com'),
-('Steve', 'Trampos', 'steve_trampos@maca.com');
+INSERT INTO usuarios (nome, sobrenome, email, id_funcao)
+VALUES ('Marcelo','Diament','marcelo@diament.com.br',1),
+('Henrique','Serra','henrique@diament.com.br',1),
+('Wolfgang','Amadeus Mozart','wolfg@ngamadeusmoz.art',2),
+('Ludwig','van Beethoven', 'ludv@nbeethov.en',2),
+('Pyotr','Ilyich Tchaikovsky','tch@ikov.sky',2),
+('Igor','Stravinsky', 'i.str@vins.sky',2),
+('George','Friedrich Händel','h@ndel.com',2),
+('Giacomo','Puccini', 'gi@puccini.com',2),
+('Johannes','Brahms', 'br@hms.net',2),
+('Antonio','Salieri', 'tonho@salieri.mus',2),
+('Antonio','Vivaldi', 'vivaldi@gmail.com',2),
+('Franz','Schubert', 'schubert@fra.nz',2),
+('Johann','Sebastian Bach','johan@ba.ch',2),
+('Frédéric','Chopin','fred@chop.in',2),
+('Chiquinha','Gonzaga','chica@gonzaga.com',2),
+('Heitor','Villa-Lobos','villa@lobos.com',2),
+('Alfredo','da Rocha Viana Filho','pixinguinha@ig.com.br',2),
+('Ary','Barroso','barroso.ary@terra.com.br',2),
+('Angenor','de Oliveira,','cartola@live.com',2),
+('Noel','Rosa','noel.rosa@outlook.com',2),
+('João','Rubinato','adoni@ran-barbosa.com',2),
+('Luiz','Gonzada','l.gonzada@gmail.com',2),
+('Vinicius','de Moraes','poeta@ig.com.br',2),
+('Lupicínio','Rodrigues','loop@live.com',2),
+('Dorival','Caymmi','dori@val.com',2),
+('Antônio Carlos','Jobim','tom@jobim.co',2),
+('Antônio José','Santana Martins','tom@tomze.com.br',2),
+('Baden','Powell','baden@powell.com.br',2),
+('Roberto','Carlos','rei@rb.com.br',2),
+('Erasmo','Carols','erasmo@carlos.com.br',2),
+('Gilberto','Gil','gil@berto.com',2),
+('Milton','Nascimento','miltinho@nascimento.com.br',2),
+('Caetano','Veloso','caeto@veloso.com',2),
+('Paulinho','da Viola','pdv@gmail.com',2),
+('Sebastião','Rodrigues Maia','timm@ia.com.br',2),
+('Chico','Buarque de Holanda','chico@buarque.com',2),
+('Aldir','Blanc','aldir@blanc.com',2),
+('João','Bosco','johnny@bosco.com',2),
+('Alceu','Paiva Valença','alceu@valenca.com',2),
+('Zé','Ramalho','ze@ramalho.com.br',2),
+('Antonio','Pecci Filho','toquinho@gmail.com',2),
+('Djavan','Caetano Viana','dj@van.com.br',2),
+('Marisa','Monte','marisa@monte.com',2),
+('Agenor','de Miranda Araújo Neto','cazuza@baraovermelho.com',2);
 ```
 
-Podemos ainda executar `SELECT * FROM usuarios;` para vermos os registros inseridos.
+Podemos ainda executar um `SELECT` para vermos os registros inseridos:
+
+``` mysql
+SELECT usuarios.nome AS 'Nome',
+    usuarios.sobrenome AS 'Sobrenome',
+    usuarios.email AS 'Email',
+    funcoes.funcao AS 'Função'
+FROM usuarios
+LEFT JOIN funcoes ON usuarios.id_funcao = funcoes.id;
+```
 
 ### Dependências Globais
 
@@ -688,6 +754,7 @@ Dentro dessa `section` , teremos uma `table` e, dentro dela, uma `tr` (_table ro
           <th>Nome</th>
           <th>Sobrenome</th>
           <th>Email</th>
+          <th>Função</th>
         </tr>
       </thead>
       <tbody>
@@ -697,6 +764,7 @@ Dentro dessa `section` , teremos uma `table` e, dentro dela, uma `tr` (_table ro
           <td class="user__name"><%= user.name %></td>
           <td class="user__lastname"><%= user.lastName %></td>
           <td class="user__email"><%= user.email %></td>
+          <td class="user__function"><%= user.id_funcao === 1 ? 'Admin' : 'Usuário Final' %></td>
         </tr>
         <% } %>
       </tbody>
@@ -747,6 +815,7 @@ Tudo o que precisamos fazer é mover o trecho referente à listagem de usuários
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
+        <th>Função</th>
       </tr>
     </thead>
     <tbody>
@@ -756,6 +825,7 @@ Tudo o que precisamos fazer é mover o trecho referente à listagem de usuários
         <td class="user__name"><%= user.name %></td>
         <td class="user__lastname"><%= user.lastName %></td>
         <td class="user__email"><%= user.email %></td>
+        <td class="user__function"><%= user.id_funcao === 1 ? 'Admin' : 'Usuário Final' %></td>
       </tr>
       <% } %>
     </tbody>
@@ -1080,7 +1150,7 @@ Sabemos que nosso formulário está pronto para enviar os dados via `POST` . Tam
 
 Então vamos usar a desestruturação para capturarmos cada um dos valores dos _inputs_, montarmos nossa _query_, ajustarmos o `type` da _query_ Sequelize para `INSERT` e usarmos o `replacement` com objeto para passaros os valores vindos do formulário para a _query_.
 
-Nosso método vai se chamar `add` :
+Nosso método vai se chamar `add` (consideraremos que todo usuário com email `@diament.com.br` é administrador):
 
 ``` js
 add: async (req, res, next) => {
@@ -1089,11 +1159,13 @@ add: async (req, res, next) => {
         sobrenome,
         email
     } = req.body
-    const user = await db.query(`INSERT INTO usuarios (nome, sobrenome, email) VALUES (:nome, :sobrenome, :email)`, {
+    const id_funcao = email.indexOf('@diament.com.br') > 0 ? 1 : 2
+    const user = await db.query(`INSERT INTO usuarios (nome, sobrenome, email, id_funcao) VALUES (:nome, :sobrenome, :email, :id_funcao)`, {
         replacements: {
             nome,
             sobrenome,
-            email
+            email,
+            id_funcao
         },
         type: Sequelize.QueryTypes.INSERT
     })
@@ -1521,6 +1593,7 @@ Enfim, nosso _template_ parcial `users` ficou assim:
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
+        <th>Função</th>
         <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <th>Ver</th>
         <% } %>
@@ -1537,6 +1610,7 @@ Enfim, nosso _template_ parcial `users` ficou assim:
         <td class="user__name"><%= user.nome %></td>
         <td class="user__lastname"><%= user.sobrenome %></td>
         <td class="user__email"><%= user.email %></td>
+        <td class="user__function"><%= user.id_funcao === 1 ? 'Admin' : 'Usuário Final' %></td>
         <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <td class="user__see">
           <form action="/users/<%= user.id %>" method="GET">
@@ -1729,7 +1803,7 @@ Agora um desafio bacana de CSS - como definir um comportamento da tabela no mobi
 
 Primeiro, vamos incluir um meta dado no `header` para conseguirmos controlar o estilo por _media query_:
 
-```ejs
+``` ejs
 <meta name="viewport" content="width=device-width,initial-scale=1">
 ```
 
@@ -1739,18 +1813,19 @@ Essa _meta tag_ carregará o conteúdo com um zoom de 100% e considerará a larg
 
 Agora vamos preparar nossas _tags_ HTML para podermos trabalhar, em seguida, com o estilo (CSS).
 
-```ejs
+``` ejs
 <td class="user__id" data-title="ID"><%=user.id%></td>
 <td class="user__name" data-title="Nome"><%= user.nome %></td>
 <td class="user__lastname" data-title="Sobrenome"><%= user.sobrenome %></td>
 <td class="user__email" data-title="Email"><%= user.email %></td>
+<td class="user__function" data-title="Função"><%= user.id_funcao === 1 ? 'Admin' : 'Usuário Final' %></td>
 ```
 
 Incluímos um atributo chamado `data-title` nas _tags_ `td` do id, nome, sobrenome e email. Fizemos isso para, no estilo, incluirmos o título de cada coluna (replicado nesse atributo) antes de cada valor, para que fique claro qual a 'chave' do valor mostrado para o usuário.
 
 **Estilo**
 
-Agora chegou a parte do desafio! Seria muito mais fácil incluirmos um _media query_ para resolução _mobile_. Mas como queremos fazer as coisas do jeito certo, utilizaremos o conceito de _mobile first_, onde consideraremos a resolução _mobile_ como padrão e utilizaremos as _media queries_ para tratarmos resoluções maiores (`min-width: 768px`).
+Agora chegou a parte do desafio! Seria muito mais fácil incluirmos um _media query_ para resolução _mobile_. Mas como queremos fazer as coisas do jeito certo, utilizaremos o conceito de _mobile first_, onde consideraremos a resolução _mobile_ como padrão e utilizaremos as _media queries_ para tratarmos resoluções maiores ( `min-width: 768px` ).
 
 Então primeiro vamos manipular a tabela de forma a:
 
@@ -1770,86 +1845,86 @@ Então primeiro vamos manipular a tabela de forma a:
 
 Tendo tudo isso em mente, os trechos alterados (referentes à tabela de usuários) são os seguintes:
 
-```css
+``` css
 .users-table th,
 .users-table td {
-  padding: 6px 12px;
+    padding: 6px 12px;
 }
 
 .users-table td {
-  display: block;
+    display: block;
 }
 
 .users-table td:not(:nth-child(n+5))::before {
-  content: attr(data-title) ": ";
-  font-weight: bolder;
+    content: attr(data-title) ": ";
+    font-weight: bolder;
 }
 
 .users-table thead tr th:first-child {
-  color: transparent;
-  font-size: 0;
+    color: transparent;
+    font-size: 0;
 }
 
 .users-table thead tr th:first-child::before {
-  color: var(--branco);
-  content: 'Usuários';
-  font-size: 16px;
+    color: var(--branco);
+    content: 'Usuários';
+    font-size: 16px;
 }
 
 .users-table thead tr th:not(:first-child) {
-  display: none;
+    display: none;
 }
 
 .users-table tbody tr td:last-child {
-  border-bottom: 1px solid var(--cinza);
-  margin-bottom: 16px;
-  padding-bottom: 16px;
+    border-bottom: 1px solid var(--cinza);
+    margin-bottom: 16px;
+    padding-bottom: 16px;
 }
 ```
 
 O trecho da _media query_ ficará assim (lembre-se de deixar esse trecho no final do arquivo):
 
-```css
+``` css
 @media screen and (min-width: 768px) {
 
-  .users-table td {
-    display: table-cell;
-  }
+    .users-table td {
+        display: table-cell;
+    }
 
-  .users-table td:not(:nth-child(n+5))::before {
-    content: none;
-  }
+    .users-table td:not(:nth-child(n+5))::before {
+        content: none;
+    }
 
-  .users-table thead tr th:first-child {
-    color: var(--branco);
-    font-size: initial;
-  }
+    .users-table thead tr th:first-child {
+        color: var(--branco);
+        font-size: initial;
+    }
 
-  .users-table thead tr th:first-child::before {
-    content: none;
-  }
+    .users-table thead tr th:first-child::before {
+        content: none;
+    }
 
-  .users-table thead tr th:not(:first-child) {
-    display: table-cell;
-  }
+    .users-table thead tr th:not(:first-child) {
+        display: table-cell;
+    }
 
-  .users-table tbody tr td:last-child {
-    border-bottom: none;
-    margin-bottom: auto;
-    padding-bottom: auto;
-  }
+    .users-table tbody tr td:last-child {
+        border-bottom: none;
+        margin-bottom: auto;
+        padding-bottom: auto;
+    }
 }
 ```
 
-E os ajustes dos inputs dos formulários (`display` e `max-width`):
+E os ajustes dos inputs dos formulários ( `display` e `max-width` ):
 
-```css
+``` css
 .register-user .form__input-container input,
 .edit-user .form__input-container input {
-  display: block;
-  max-width: calc(100vw - 64px);
-  padding: 4px 8px;
-  width: -webkit-fill-available;
+    display: block;
+    max-width: calc(100vw - 64px);
+    padding: 4px 8px;
+    width: -webkit-fill-available;
 }
 ```
 
