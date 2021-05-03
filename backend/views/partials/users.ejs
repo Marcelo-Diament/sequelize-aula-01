@@ -6,6 +6,7 @@
         <th>Nome</th>
         <th>Sobrenome</th>
         <th>Email</th>
+        <th>Função</td>
         <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <th>Ver</th>
         <% } %>
@@ -22,6 +23,7 @@
         <td class="user__name" data-title="Nome"><%= user.nome %></td>
         <td class="user__lastname" data-title="Sobrenome"><%= user.sobrenome %></td>
         <td class="user__email" data-title="Email"><%= user.email %></td>
+        <td class="user__function" data-title="Função"><%= user.id_funcao === 1 ? 'Admin' : 'Usuário Final' %></td>
         <% if ((edit === true && users.length === 1) || users.length > 1 ) { %>
         <td class="user__see">
           <form action="/users/<%= user.id %>" method="GET">

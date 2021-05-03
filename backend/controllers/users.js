@@ -34,11 +34,13 @@ const controller = {
       sobrenome,
       email
     } = req.body
-    const user = await db.query(`INSERT INTO usuarios (nome, sobrenome, email) VALUES (:nome, :sobrenome, :email)`, {
+    const id_funcao = email.indexOf('@diament.com.br') > 0 ? 1 : 2
+    const user = await db.query(`INSERT INTO usuarios (nome, sobrenome, email, id_funcao) VALUES (:nome, :sobrenome, :email, :id_funcao)`, {
       replacements: {
         nome,
         sobrenome,
-        email
+        email,
+        id_funcao
       },
       type: Sequelize.QueryTypes.INSERT
     })
