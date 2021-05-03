@@ -1855,7 +1855,7 @@ Tendo tudo isso em mente, os trechos alterados (referentes à tabela de usuário
     display: block;
 }
 
-.users-table td:not(:nth-child(n+5))::before {
+.users-table td:not(:nth-child(n+6))::before {
     content: attr(data-title) ": ";
     font-weight: bolder;
 }
@@ -1891,7 +1891,7 @@ O trecho da _media query_ ficará assim (lembre-se de deixar esse trecho no fina
         display: table-cell;
     }
 
-    .users-table td:not(:nth-child(n+5))::before {
+    .users-table td:not(:nth-child(n+6))::before {
         content: none;
     }
 
